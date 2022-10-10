@@ -1,0 +1,142 @@
+html {
+	background-color: #141414;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+.menu {
+	display: flex;
+	align-items: center;
+	margin: auto;
+	margin-top: 10px;
+	width: 60%;
+	height: auto;
+	background-color: #666666;
+	border-radius: 20px;
+}
+
+.graph {
+	padding-top: 4px;
+	padding-left: 30px;
+	text-align: left;
+	width: 50%;
+}
+
+.graph > img {
+	border-radius: 20px;
+}
+
+.data_input {
+	display: inline;
+	width: 50%;
+	text-align: center;
+	align-items: end;
+}
+
+.x_input {
+	margin-bottom: 20px;
+}
+
+.x_input > label {
+	color: black;
+}
+
+
+.y_input > input {
+	color: black;
+	text-align: center;
+	font-size: 20px;
+	background-color: #666666; 
+	border: 2px solid black;
+	border-radius: 10px;
+	width: 80%;
+}
+
+.r_input {
+	margin-top: 20px;
+}
+
+.r_input > select {
+	width: 82%;
+	background-color: #666666;	
+	border: 2px solid black;
+	border-radius: 10px;
+	color: black;
+	font-size: 20px;
+	text-align: center;
+}
+
+.r_input > select > option {
+	color: black;
+}
+
+.buttons {
+	margin-top: 20px;
+}
+
+button {
+	width: 40%;
+	background-color: #666666;
+	color: black;
+	border: 2px solid black;
+	border-radius: 10px;
+	font-size: 20px;
+}
+
+#alert {
+	display: flex;
+	justify-content: center;
+	height: 80px;
+	margin: auto;
+	margin-top: 10px;
+	background-color: #666666;
+	border: 2px solid white;
+	border-radius: 20px;
+	width: 60%;
+	color: red;
+	font-size: 20px;
+	align-items: center;
+	text-align: center;
+}
+
+.table {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+	margin-top: 10px;
+
+}
+
+span {
+	color: black;
+	font-size: 20px;
+}
+
+table {
+	margin-top: 10px;
+	border-radius: 10px;
+	overflow: hidden;
+	border: 1px solid white;
+	border-collapse: collapse;
+}
+
+th, td {
+	padding: 5px 10px;
+	border: 1px solid white;
+	border-color: #888888;
+	color: white;
+	background-color: #333333;
+	font-size: 22px;
+}
+
+::placeholder {
+	color: black;
+	text-align: center;
+}
+
