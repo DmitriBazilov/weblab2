@@ -34,8 +34,6 @@
             <label for="X--2">-2</label>
             <input type="checkbox" id="X--3" name="X" value="-3">
             <label for="X--3">-3</label>
-            <input type="checkbox" id="X--4" name="X" value="-4">
-            <label for="X--4">-4</label>
             <input type="checkbox" id="X-0" name="X" value="0">
             <label for="X-0">0</label>
             <input type="checkbox" id="X-1" name="X" value="1">
@@ -46,19 +44,23 @@
             <label for="X-3">3</label>
             <input type="checkbox" id="X-4" name="X" value="4">
             <label for="X-4">4</label>
+            <input type="checkbox" id="X-5" name="X" value="5">
+            <label for="X-5">5</label>
         </div>
         <div class="y_input">
             <input id = "y_text" type="text" placeholder="Input Y">
         </div>
         <div class="r_input">
-            <select id="r_select">
-                <option value="" selected disabled hidden>Choose R</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
+            <input type="checkbox" id="R-1" name="R" value="1">
+            <label for="R-1">1</label>
+            <input type="checkbox" id="R-1.5" name="R" value="1.5">
+            <label for="R-1.5">1.5</label>
+            <input type="checkbox" id="R-2" name="R" value="2">
+            <label for="R-2">2</label>
+            <input type="checkbox" id="R-2.5" name="R" value="2.5">
+            <label for="R-2.5">2.5</label>
+            <input type="checkbox" id="R-3" name="R" value="3">
+            <label for="R-3">3</label>
         </div>
         <div class="buttons">
             <button class="btnSend" id="btnSend" type="button">submit</button>

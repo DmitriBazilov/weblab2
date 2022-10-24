@@ -2,13 +2,12 @@ function sendForm(board, points, x, y, r) {
 
 	$.ajax({
 		url: 'ControllerServlet',
-		type: 'POST',
+		type: 'GET',
 		data: {
 			'x': x,
 			'y': y,
 			'r': r,
-			'offset': new Date().getTimezoneOffset(),
-			'clean': 'false'
+			'offset': new Date().getTimezoneOffset()
 		},
 		success: function(data) {
 			console.log(data);

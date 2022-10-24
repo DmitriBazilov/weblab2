@@ -18,7 +18,7 @@ public class AreaCheckServlet extends HttpServlet {
     private DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         long currentTime = System.currentTimeMillis();
         Float x = Float.parseFloat(request.getParameter("x"));

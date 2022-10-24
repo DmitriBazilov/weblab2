@@ -20,10 +20,14 @@ public class ControllerServlet extends HttpServlet {
         createTableIfNeed(request);
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
-        ArrayList<TableRow> rows = (ArrayList<TableRow>) request.getSession().getAttribute("table");
-        out.print(new JSONArray(rows));
-        out.close();
-        response.setStatus(HttpServletResponse.SC_OK);
+        if (checkGetTableRequest(request)) {
+            ArrayList<TableRow> rows = (ArrayList<TableRow>) request.getSession().getAttribute("table");
+            out.print(new JSONArray(rows));
+            out.close();
+            response.setStatus(HttpServletResponse.SC_OK);
+        } else if (checkArgumentExists(request)) {
+            getServletContext().getRequestDispatcher("/AreaCheckServlet").forward(request, response);
+        }
     }
 
     @Override
@@ -32,8 +36,6 @@ public class ControllerServlet extends HttpServlet {
         if (checkCleanRequest(request)) {
             cleanTable(request);
             response.setStatus(HttpServletResponse.SC_OK);
-        } else if (checkArgumentExists(request)) {
-            getServletContext().getRequestDispatcher("/AreaCheckServlet").forward(request, response);
         } else {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
@@ -60,5 +62,9 @@ public class ControllerServlet extends HttpServlet {
                 request.getParameter("y") != null &&
                 request.getParameter("r") != null &&
                 request.getParameter("offset") != null;
+    }
+
+    private boolean checkGetTableRequest(HttpServletRequest request) {
+        return "true".equals(request.getParameter("getTable"));
     }
 }

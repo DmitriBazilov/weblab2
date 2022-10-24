@@ -8,7 +8,7 @@ $(document).ready(function () {
     // let t = createTriangle(board, 2);
 
     var r_selector = $('#r_select option');
-    r_selector.each(function() {
+    r_selector.each(function () {
         let value = $(this).val();
         console.log(value);
         pointsByRadius[value] = [];
@@ -18,7 +18,7 @@ $(document).ready(function () {
     //     console.log("change");
     //     createFigures(board, figures, this.selectedIndex);
     // };
-    $('#r_select').on('change', function() {
+    $('#r_select').on('change', function () {
         console.log(this.value);
         clearFigures(board, figures);
         let newRadius = this.value;
@@ -27,7 +27,7 @@ $(document).ready(function () {
         let circle = createCircle(board, newRadius);
         figures = [rectangle, triangle, circle];
 
-        r_selector.each(function() {
+        r_selector.each(function () {
             let idxRadius = $(this).val();
             pointsByRadius[idxRadius].forEach(function (point) {
                 if (idxRadius === newRadius)
@@ -53,7 +53,7 @@ $(document).ready(function () {
 
     $('#btnReset').click(function (event) {
         clearFigures(board, figures);
-        r_selector.each(function() {
+        r_selector.each(function () {
             let idxRadius = $(this).val();
             pointsByRadius[idxRadius].forEach(function (point) {
                 point.hideElement();
@@ -116,7 +116,9 @@ function createCircle(board, r) {
 
 function createPoint(board, x, y, hit) {
     let color = hit ? "#7ce57c" : "#dc4a4a";
-    return board.create("point", [x, y], {name: '', fixed: true, visible: false, fillColor: color, fillOpacity: 1,
-        strokewidth: 0});
+    return board.create("point", [x, y], {
+        name: '', fixed: true, visible: false, fillColor: color, fillOpacity: 1,
+        strokewidth: 0
+    });
 
 }
