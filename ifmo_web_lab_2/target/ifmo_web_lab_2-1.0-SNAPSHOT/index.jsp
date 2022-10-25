@@ -23,7 +23,7 @@
 </header>
 <div class="menu">
     <div class="graph">
-    <div id="jxgbox" class="jxgbox" style="width:500px; height:300px; margin-left:30px;"></div>
+        <div id="jxgbox" class="jxgbox" style="width:500px; height:300px; margin-left:30px;"></div>
     </div>
     <form id="formSend" class="data_input">
         <div class="x_input">
@@ -34,8 +34,6 @@
             <label for="X--2">-2</label>
             <input type="checkbox" id="X--3" name="X" value="-3">
             <label for="X--3">-3</label>
-            <input type="checkbox" id="X--4" name="X" value="-4">
-            <label for="X--4">-4</label>
             <input type="checkbox" id="X-0" name="X" value="0">
             <label for="X-0">0</label>
             <input type="checkbox" id="X-1" name="X" value="1">
@@ -46,9 +44,11 @@
             <label for="X-3">3</label>
             <input type="checkbox" id="X-4" name="X" value="4">
             <label for="X-4">4</label>
+            <input type="checkbox" id="X-5" name="X" value="5">
+            <label for="X-5">5</label>
         </div>
         <div class="y_input">
-            <input id = "y_text" type="text" placeholder="Input Y">
+            <input id="y_text" type="text" placeholder="Input Y">
         </div>
         <div class="r_input">
             <select id="r_select">
@@ -68,9 +68,8 @@
 </div>
 <div id="alert"></div>
 <div class="table">
-<%--    TODO add clean points--%>
-    <button class="btnClean" type="button" onclick="clean_table()">Clean Table</button>
-    <table id = result_table>
+    <button class="btnClean" id="btnClean" type="button">Clean Table</button>
+    <table id=result_table>
         <tr>
             <th>X</th>
             <th>Y</th>

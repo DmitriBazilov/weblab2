@@ -6,8 +6,8 @@ function validate_values(x, y, r) {
 }
 
 function validate_x(x) {
-	if (x.length != 1) {
-		return "You can choose only 1 X. <br>";
+	if (x.length === 0) {
+		return "Choose X please. <br>";
 	}
 	return "";
 }
@@ -15,8 +15,8 @@ function validate_x(x) {
 function validate_y(y) {
 	if (isNaN(y.value) || isNaN(parseFloat(y.value))) {
 		return "Y must be a number <br>";
-	} else if (parseFloat(y.value) > 3 || parseFloat(y.value) < -3) {
-		return "Y must be in [-3; 3] <br>";
+	} else if (parseFloat(y.value) > 3 || parseFloat(y.value) < -5) {
+		return "Y must be in [-5; 3] <br>";
 	} else {
 		return "";
 	}

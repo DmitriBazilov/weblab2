@@ -18,6 +18,15 @@ public class AreaCheckServlet extends HttpServlet {
     private DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!req.getDispatcherType().name().equals("FORWARD")) {
+            resp.sendError(403, "You are not welcome!");
+            return;
+        }
+        super.service(req, resp);
+    }
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         long currentTime = System.currentTimeMillis();

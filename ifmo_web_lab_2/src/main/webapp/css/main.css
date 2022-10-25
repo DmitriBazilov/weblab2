@@ -26,10 +26,6 @@ body {
 	width: 50%;
 }
 
-.graph > img {
-	border-radius: 20px;
-}
-
 .data_input {
 	display: inline;
 	width: 50%;

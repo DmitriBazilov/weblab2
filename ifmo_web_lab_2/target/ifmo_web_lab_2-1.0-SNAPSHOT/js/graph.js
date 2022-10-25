@@ -5,19 +5,13 @@ $(document).ready(function () {
     let pointsByRadius = {};
     let figures = [];
     initialize_table(board, pointsByRadius);
-    // let t = createTriangle(board, 2);
 
     var r_selector = $('#r_select option');
     r_selector.each(function () {
         let value = $(this).val();
-        console.log(value);
         pointsByRadius[value] = [];
     });
-    // r_selector.onchange = function (e) {
-    //     // clearFigures(board, figures);
-    //     console.log("change");
-    //     createFigures(board, figures, this.selectedIndex);
-    // };
+
     $('#r_select').on('change', function () {
         console.log(this.value);
         clearFigures(board, figures);
@@ -30,10 +24,7 @@ $(document).ready(function () {
         r_selector.each(function () {
             let idxRadius = $(this).val();
             pointsByRadius[idxRadius].forEach(function (point) {
-                if (idxRadius === newRadius)
-                    point.showElement();
-                else
-                    point.hideElement();
+                if (idxRadius === newRadius) point.showElement(); else point.hideElement();
             });
         });
     });
@@ -47,7 +38,9 @@ $(document).ready(function () {
         if (result !== "") {
             alrt.innerHTML = "<strong>" + result + "</strong>";
         } else {
-            sendForm(board, pointsByRadius, x.item(0).value, y.value, r.value);
+            x.forEach(function (xNumber) {
+                sendForm(board, pointsByRadius, xNumber.value, y.value, r.value);
+            });
         }
     });
 
@@ -59,7 +52,16 @@ $(document).ready(function () {
                 point.hideElement();
             });
         });
-    })
+    });
+
+    $('#btnClean').click(function (event) {
+        r_selector.each(function () {
+            let idxRadius = $(this).val();
+            board.removeObject(pointsByRadius[idxRadius]);
+            pointsByRadius[idxRadius] = [];
+        });
+        clean_table();
+    });
 
     board.on("down", function (event) {
         if (event.button === 2 || event.target.className === 'JXG_navigation_button') {
@@ -76,7 +78,6 @@ $(document).ready(function () {
 });
 
 function clearFigures(board, figures) {
-    console.log(figures);
     for (const object of figures) {
         let points = object.ancestors;
         for (const point in points) board.removeObject(point);
@@ -85,13 +86,13 @@ function clearFigures(board, figures) {
 }
 
 function createRectangle(board, r) {
-    console.log("tri");
     let rectanglePoint1 = board.create('point', [0, 0], {name: '', fixed: true, visible: false});
     let rectanglePoint2 = board.create('point', [-r, 0], {name: '', fixed: true, visible: false});
     let rectanglePoint3 = board.create('point', [-r, -r / 2], {name: '', fixed: true, visible: false});
     let rectanglePoint4 = board.create('point', [0, -r / 2], {name: '', fixed: true, visible: false});
-    return board.create('polygon', [rectanglePoint1, rectanglePoint2, rectanglePoint3, rectanglePoint4],
-        {fillColor: '#e196fa', fillOpacity: 1});
+    return board.create('polygon', [rectanglePoint1, rectanglePoint2, rectanglePoint3, rectanglePoint4], {
+        fillColor: '#e196fa', fillOpacity: 1
+    });
 }
 
 function createTriangle(board, r) {
@@ -99,8 +100,7 @@ function createTriangle(board, r) {
     let trianglePoint2 = board.create('point', [-r / 2, 0], {name: '', fixed: true, visible: false});
     let trianglePoint3 = board.create('point', [0, r / 2], {name: '', fixed: true, visible: false});
     return board.create('polygon', [trianglePoint1, trianglePoint2, trianglePoint3], {
-        fillColor: '#e196fa',
-        fillOpacity: 1
+        fillColor: '#e196fa', fillOpacity: 1
     });
 }
 
@@ -109,16 +109,14 @@ function createCircle(board, r) {
     let circlePoint2 = board.create('point', [0, r / 2], {name: '', fixed: true, visible: false});
     let centerPoint = board.create('point', [0, 0], {name: '', fixed: true, visible: false});
 
-    return board.create('sector', [centerPoint, circlePoint1, circlePoint2],
-        {fillColor: '#e196fa', fillOpacity: 1});
+    return board.create('sector', [centerPoint, circlePoint1, circlePoint2], {fillColor: '#e196fa', fillOpacity: 1});
 }
 
 
 function createPoint(board, x, y, hit) {
     let color = hit ? "#7ce57c" : "#dc4a4a";
     return board.create("point", [x, y], {
-        name: '', fixed: true, visible: false, fillColor: color, fillOpacity: 1,
-        strokewidth: 0
+        name: '', fixed: true, visible: false, fillColor: color, fillOpacity: 1, strokewidth: 0
     });
 
 }

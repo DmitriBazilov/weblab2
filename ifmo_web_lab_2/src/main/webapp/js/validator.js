@@ -23,9 +23,8 @@ function validate_y(y) {
 }
 
 function validate_r(r) {
-	if (r.length === 0) {
-		return "Choose R please. <br>";
-	}
-	return "";
+	if (parseInt(r.value))
+		return "";
+	return "Please, choose R.";
 }
 
