@@ -14,7 +14,6 @@
 
 <%@ page import="com.dmitri.ifmo_web_lab_2.entity.TableRow" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.io.IOException" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
