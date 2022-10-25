@@ -4,14 +4,13 @@ $(document).ready(function () {
     let board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-8, 6, 8, -6], axis: true, showCopyright: false});
     let pointsByRadius = {};
     let figures = [];
-    initialize_table(board, pointsByRadius);
 
     var r_selector = $('#r_select option');
     r_selector.each(function () {
         let value = $(this).val();
         pointsByRadius[value] = [];
     });
-
+    initialize_table(board, pointsByRadius);
     $('#r_select').on('change', function () {
         console.log(this.value);
         clearFigures(board, figures);

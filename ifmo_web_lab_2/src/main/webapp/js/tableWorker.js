@@ -1,19 +1,29 @@
 function initialize_table(board, points) {
-    $.ajax({
-        type: "GET",
-        url: "ControllerServlet",
-        data: {'getTable': 'true'},
-        success: function (response) {
-            Array.from(response).forEach(function (element) {
-                let x = element.x, y = element.y, r = element.r, hit = element.hit;
-                points[r].push(createPoint(board, x, y, hit));
-                addInTable(convertToHtmlTable(element));
-            });
-        },
-        error: function (response) {
-            alert(response);
-        }
-    });
+    // $.ajax({
+    //     type: "GET",
+    //     url: "ControllerServlet",
+    //     data: {'getTable': 'true'},
+    //     success: function (response) {
+    //         Array.from(response).forEach(function (element) {
+    //             let x = element.x, y = element.y, r = element.r, hit = element.hit;
+    //             points[r].push(createPoint(board, x, y, hit));
+    //             addInTable(convertToHtmlTable(element));
+    //         });
+    //     },
+    //     error: function (response) {
+    //         alert(response);
+    //     }
+    // });
+
+    let tBody = document.getElementById('table_body');
+    for (let row of tBody.rows) {
+        var x = parseFloat(row.cells.item(0).innerText);
+        var y = parseFloat(row.cells.item(1).innerText);
+        var r = parseInt(row.cells.item(2).innerText);
+        var hit = row.cells.item(5).innerText === 'true';
+        console.log(x, y, r, hit);
+        points[r].push(createPoint(board, x, y, hit));
+    }
 }
 
 function clean_table() {

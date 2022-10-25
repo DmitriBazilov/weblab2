@@ -42,4 +42,8 @@ public final class TableRow {
     public double getScriptWorkingTime() {
         return scriptWorkingTime;
     }
+
+    public boolean getHit() {
+        return hit;
+    }
 }

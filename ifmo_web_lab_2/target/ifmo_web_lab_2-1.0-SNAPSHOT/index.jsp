@@ -1,3 +1,20 @@
+<%!
+    String tableRowToHtml(TableRow tableRow) {
+        if (tableRow == null) return "";
+        return "<tr>" +
+                "<td>" + tableRow.getX() + "</td>" +
+                "<td>" + tableRow.getY() + "</td>" +
+                "<td>" + tableRow.getR() + "</td>" +
+                "<td>" + tableRow.getClientDate() + "</td>" +
+                "<td>" + tableRow.getScriptWorkingTime() + " ms</td>" +
+                "<td>" + tableRow.getHit() + "</td>" +
+                "</tr>";
+    }
+%>
+
+<%@ page import="com.dmitri.ifmo_web_lab_2.entity.TableRow" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.io.IOException" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -79,7 +96,13 @@
             <th>Result</th>
         </tr>
         <tbody id="table_body">
-
+            <%
+                ArrayList<TableRow> rows = (ArrayList<TableRow>) request.getSession().getAttribute("table");
+                if (rows == null) rows = new ArrayList<>();
+                for (TableRow tableRow: rows) {
+                    out.print(tableRowToHtml(tableRow));
+                }
+            %>
         </tbody>
     </table>
 </div>
