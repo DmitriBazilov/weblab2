@@ -7,15 +7,19 @@
                 "<td>" + tableRow.getR() + "</td>" +
                 "<td>" + tableRow.getClientDate() + "</td>" +
                 "<td>" + tableRow.getScriptWorkingTime() + " ms</td>" +
-                "<td>" + tableRow.getHit() + "</td>" +
+                "<td>" + tableRow.isHit() + "</td>" +
                 "</tr>";
     }
 %>
 
 <%@ page import="com.dmitri.ifmo_web_lab_2.entity.TableRow" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.io.IOException" %>
+<%@ page import="com.dmitri.ifmo_web_lab_2.entity.Table" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<jsp:useBean id="table" scope="session" beanName="com.dmitri.ifmo_web_lab_2.entity.Table"
+             type="com.dmitri.ifmo_web_lab_2.entity.Table"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,9 +101,8 @@
         </tr>
         <tbody id="table_body">
             <%
-                ArrayList<TableRow> rows = (ArrayList<TableRow>) request.getSession().getAttribute("table");
-                if (rows == null) rows = new ArrayList<>();
-                for (TableRow tableRow: rows) {
+                ArrayList<TableRow> tableRows = table.getTableRows();
+                for (TableRow tableRow: tableRows) {
                     out.print(tableRowToHtml(tableRow));
                 }
             %>

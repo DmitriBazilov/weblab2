@@ -21,7 +21,6 @@ function initialize_table(board, points) {
         var y = parseFloat(row.cells.item(1).innerText);
         var r = parseInt(row.cells.item(2).innerText);
         var hit = row.cells.item(5).innerText === 'true';
-        console.log(x, y, r, hit);
         points[r].push(createPoint(board, x, y, hit));
     }
 }

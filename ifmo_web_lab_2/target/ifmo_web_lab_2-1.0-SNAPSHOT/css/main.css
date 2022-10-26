@@ -15,6 +15,7 @@ body {
 	margin-top: 10px;
 	width: 60%;
 	height: auto;
+	max-height: 1000px;
 	background-color: #666666;
 	border-radius: 20px;
 }
@@ -27,7 +28,6 @@ body {
 }
 
 .data_input {
-	display: inline;
 	width: 50%;
 	text-align: center;
 	align-items: end;

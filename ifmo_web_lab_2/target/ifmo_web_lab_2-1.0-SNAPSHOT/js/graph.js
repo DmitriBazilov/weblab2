@@ -38,7 +38,7 @@ $(document).ready(function () {
             alrt.innerHTML = "<strong>" + result + "</strong>";
         } else {
             x.forEach(function (xNumber) {
-                sendForm(board, pointsByRadius, xNumber.value, y.value, r.value);
+                sendForm(board, pointsByRadius, xNumber.value, y.value.replace(",", "."), r.value);
             });
         }
     });

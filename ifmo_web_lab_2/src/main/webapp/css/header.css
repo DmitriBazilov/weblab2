@@ -12,10 +12,10 @@
 	font-family: monospace;
 	color: white;
 	text-decoration: none;
-	transition: 100s;
+	transition: 1s;
 }
 
 .header > a:hover {
-	font-size: 1000000px;
-	transition: 100s;
+	font-size: 45px;
+	transition: 1s;
 }

@@ -13,9 +13,10 @@ function validate_x(x) {
 }
 
 function validate_y(y) {
-	if (isNaN(y.value) || isNaN(parseFloat(y.value))) {
+	let newY = y.value.replace(",", ".");
+	if (isNaN(newY) || isNaN(parseFloat(newY))) {
 		return "Y must be a number <br>";
-	} else if (parseFloat(y.value) > 3 || parseFloat(y.value) < -5) {
+	} else if (parseFloat(newY) > 3 || parseFloat(newY) < -5) {
 		return "Y must be in [-5; 3] <br>";
 	} else {
 		return "";

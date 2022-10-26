@@ -1,5 +1,6 @@
 package com.dmitri.ifmo_web_lab_2;
 
+import com.dmitri.ifmo_web_lab_2.entity.Table;
 import com.dmitri.ifmo_web_lab_2.entity.TableRow;
 import org.json.JSONObject;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 @WebServlet(name = "AreaCheckServlet", value = "/AreaCheckServlet")
 public class AreaCheckServlet extends HttpServlet {
 
-    private DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,10 +31,10 @@ public class AreaCheckServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         long currentTime = System.currentTimeMillis();
-        Float x = Float.parseFloat(request.getParameter("x"));
-        Float y = Float.parseFloat(request.getParameter("y"));
-        Float r = Float.parseFloat(request.getParameter("r"));
-        Long offset = Long.parseLong(request.getParameter("offset"));
+        float x = Float.parseFloat(request.getParameter("x"));
+        float y = Float.parseFloat(request.getParameter("y"));
+        float r = Float.parseFloat(request.getParameter("r"));
+        long offset = Long.parseLong(request.getParameter("offset"));
         LocalDateTime clientTime = LocalDateTime.now().plusHours(offset);
 
         boolean hit = checkCircle(x, y, r) || checkRectangle(x, y, r) || checkTriangle(x, y, r);
@@ -41,8 +42,8 @@ public class AreaCheckServlet extends HttpServlet {
         double scriptWorkingTime = System.currentTimeMillis() - currentTime;
 
         TableRow newRow = new TableRow(x, y, r, hit, clientTime.format(DATE_FORMAT), scriptWorkingTime);
-        ArrayList<TableRow> sessionTable = (ArrayList<TableRow>) request.getSession().getAttribute("table");
-        sessionTable.add(newRow);
+        Table sessionTable = (Table) request.getSession().getAttribute("table");
+        sessionTable.getTableRows().add(newRow);
 
         PrintWriter out = response.getWriter();
         out.print(new JSONObject(newRow));

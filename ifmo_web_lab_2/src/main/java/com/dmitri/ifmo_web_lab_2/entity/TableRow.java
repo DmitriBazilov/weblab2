@@ -1,14 +1,17 @@
 package com.dmitri.ifmo_web_lab_2.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public final class TableRow {
-    private final float x;
-    private final float y;
-    private final float r;
-    private final boolean hit;
-    private final String clientDate;
-    private final double scriptWorkingTime;
+public final class TableRow implements Serializable {
+    private float x;
+    private float y;
+    private float r;
+    private boolean hit;
+    private String clientDate;
+    private double scriptWorkingTime;
+
+    public TableRow() {}
 
     public TableRow(float x, float y, float r, boolean hit, String clientDate, double scriptWorkingTime) {
         this.x = x;
@@ -41,9 +44,5 @@ public final class TableRow {
 
     public double getScriptWorkingTime() {
         return scriptWorkingTime;
-    }
-
-    public boolean getHit() {
-        return hit;
     }
 }
