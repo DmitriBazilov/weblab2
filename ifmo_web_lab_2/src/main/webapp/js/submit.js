@@ -17,8 +17,9 @@ function sendForm(board, points, x, y, r) {
 			points[r].push(point);
 			addInTable(convertToHtmlTable(data));
 		},
-		error: function(data) {
-			alert(data);
+		error: function(jqXHR, textStatus, errorThrown) {
+			var alrt = document.getElementById('alert');
+			alrt.innerHTML = textStatus + errorThrown; 
 		}
 	});
 }

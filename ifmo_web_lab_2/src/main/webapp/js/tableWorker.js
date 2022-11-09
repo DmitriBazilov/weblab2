@@ -35,7 +35,8 @@ function clean_table() {
             tBody.innerHTML = '';
         },
         error: function (response) {
-            alert(response);
+			var alrt = document.getElementById('alert');
+			alrt.innerHTML = textStatus + errorThrown;
         }
     });
 }

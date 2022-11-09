@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    console.log("YA DAUN");
-
     let board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-8, 6, 8, -6], axis: true, showCopyright: false});
     let pointsByRadius = {};
     let figures = [];
