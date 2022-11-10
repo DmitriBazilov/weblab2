@@ -44,7 +44,7 @@
 </header>
 <div class="menu">
     <div class="graph">
-        <div id="jxgbox" class="jxgbox" style="width:500px; height:300px; margin-left:30px;"></div>
+        <div id="jxgbox" class="jxgbox" style="width:300px; height:300px; margin-left:30px;"></div>
     </div>
     <form id="formSend" class="data_input">
         <div class="x_input">
@@ -72,14 +72,17 @@
             <input id="y_text" type="text" placeholder="Input Y">
         </div>
         <div class="r_input">
-            <select id="r_select">
-                <option value="" selected disabled hidden>Choose R</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
+            <span>Choose R</span><br>
+            <input type="checkbox" id="R-1" name="R" value="1">
+            <label for="R-1">1</label>
+            <input type="checkbox" id="R-1.5" name="R" value="1.5">
+            <label for="R-1.5">1.5</label>
+            <input type="checkbox" id="R-2" name="R" value="2">
+            <label for="R-2">2</label>
+            <input type="checkbox" id="R-2.5" name="R" value="2.5">
+            <label for="R-2.5">2.5</label>
+            <input type="checkbox" id="R-3" name="R" value="3">
+            <label for="R-3">3</label> 
         </div>
         <div class="buttons">
             <button class="btnSend" id="btnSend" type="button">submit</button>

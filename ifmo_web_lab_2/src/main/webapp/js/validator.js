@@ -24,8 +24,8 @@ function validate_y(y) {
 }
 
 function validate_r(r) {
-	if (parseInt(r.value))
+	if (parseFloat(r) && r >= 0)
 		return "";
-	return "Please, choose R.";
+	return "Please, choose correct R.";
 }
 

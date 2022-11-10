@@ -52,14 +52,14 @@ public class AreaCheckServlet extends HttpServlet {
     }
 
     private boolean checkTriangle(float x, float y, float r) {
-        return x <= 0 && y >= 0 && (Math.abs(x) + y) <= r / 2;
+        return x <= 0 && y <= 0 && (Math.abs(x) + Math.abs(y)) <= r;
     }
 
     private boolean checkCircle(float x, float y, float r) {
-        return x >= 0 && y >= 0 && (Math.pow(x, 2) + Math.pow(y, 2) <= Math.pow(r / 2, 2));
+        return x >= 0 && y <= 0 && (Math.pow(x, 2) + Math.pow(y, 2) <= Math.pow(r / 2, 2));
     }
 
     private boolean checkRectangle(float x, float y, float r) {
-        return x <= 0 && y <= 0 && Math.abs(x) <= r && Math.abs(y) <= r / 2;
+        return x >= 0 && y >= 0 && x <= r && y <= r / 2;
     }
 }
