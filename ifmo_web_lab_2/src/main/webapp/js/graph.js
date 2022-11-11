@@ -14,28 +14,34 @@ $(document).ready(function () {
     
     initialize_table(board, pointsByRadius);
     $('input[type="checkbox"][name="R"]').change(function(){
-        if (this.checked) {
-            console.log(this.value);
-            let newRadius = this.value;
-            let layer = 7 - $('input[name="R"]:checked').length;
-            let color = colors[$('input[name="R"]:checked').length - 1];
-            let rectangle = createRectangle(board, newRadius, color, layer);
-            let triangle = createTriangle(board, newRadius, color, layer);
-            let circle = createCircle(board, newRadius, color, layer);
-            figuresByRadius[newRadius] = [rectangle, triangle, circle];
-            pointsByRadius[newRadius].forEach(function (point) {
-                point.showElement();
-            });
-            renderFiguresByRadius(figuresByRadius, colors);
+        if (parseFloat(this.value) > 0) {
+            if (this.checked) {
+                console.log(this.value);
+                let newRadius = this.value;
+                let layer = 7 - $('input[name="R"]:checked').length;
+                let color = colors[$('input[name="R"]:checked').length - 1];
+                let rectangle = createRectangle(board, newRadius, color, layer);
+                let triangle = createTriangle(board, newRadius, color, layer);
+                let circle = createCircle(board, newRadius, color, layer);
+                figuresByRadius[newRadius] = [rectangle, triangle, circle];
+                if (!pointsByRadius[newRadius]) pointsByRadius[newRadius] = []; 
+                pointsByRadius[newRadius].forEach(function (point) {
+                    point.showElement();
+                });
+                renderFiguresByRadius(figuresByRadius, colors);
+            } else {
+                console.log(this.value);
+                let newRadius = this.value;
+                clearFigures(board, figuresByRadius[newRadius]);
+                figuresByRadius[newRadius] = [];
+                pointsByRadius[newRadius].forEach(function (point) {
+                    point.hideElement();
+                });
+                renderFiguresByRadius(figuresByRadius, colors);
+            }
         } else {
-            console.log(this.value);
-            let newRadius = this.value;
-            clearFigures(board, figuresByRadius[newRadius]);
-            figuresByRadius[newRadius] = [];
-            pointsByRadius[newRadius].forEach(function (point) {
-                point.hideElement();
-            });
-            renderFiguresByRadius(figuresByRadius, colors);
+            var alrt = document.getElementById('alert');
+            alrt.innerHTML = "<strong>Incorrect R</strong>";
         }
     });
 
@@ -153,6 +159,7 @@ function renderFiguresByRadius(figuresByRadius, colors) {
 
     r_array.forEach(function (radius, index) {
         console.log(figuresByRadius[radius.value]);
+        if (!figuresByRadius[radius.value]) figuresByRadius[radius.value] = [];
         figuresByRadius[radius.value].forEach(function (figure) {
             figure.setAttribute({fillColor: colors[index],
                 fillOpacity: 1,
@@ -174,16 +181,4 @@ function renderFiguresByRadius(figuresByRadius, colors) {
         });
         figLayer--;
     });
-/*
-    r_array.forEach(function (farray, index){
-        console.log(farray);
-        if (farray === []) return false;
-        farray.forEach(function (figure) {
-           figure.setAttribute({fillColor: colors[index],
-                fillOpacity: 1,
-                layer: figLayer,
-                highlight: false});
-        });
-        figLayer--;
-    }); */
 }

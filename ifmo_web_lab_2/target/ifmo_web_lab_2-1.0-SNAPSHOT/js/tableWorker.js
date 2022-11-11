@@ -1,20 +1,4 @@
 function initialize_table(board, points) {
-    // $.ajax({
-    //     type: "GET",
-    //     url: "ControllerServlet",
-    //     data: {'getTable': 'true'},
-    //     success: function (response) {
-    //         Array.from(response).forEach(function (element) {
-    //             let x = element.x, y = element.y, r = element.r, hit = element.hit;
-    //             points[r].push(createPoint(board, x, y, hit));
-    //             addInTable(convertToHtmlTable(element));
-    //         });
-    //     },
-    //     error: function (response) {
-    //         alert(response);
-    //     }
-    // });
-
     let tBody = document.getElementById('table_body');
     for (let row of tBody.rows) {
         var x = parseFloat(row.cells.item(0).innerText);
@@ -35,7 +19,8 @@ function clean_table() {
             tBody.innerHTML = '';
         },
         error: function (response) {
-            alert(response);
+			var alrt = document.getElementById('alert');
+			alrt.innerHTML = textStatus + errorThrown;
         }
     });
 }

@@ -9,6 +9,13 @@ function validate_x(x) {
 	if (x.length === 0) {
 		return "Choose X please. <br>";
 	}
+    console.log(x);
+    let flag = false;
+    x.forEach(function (element) {
+        console.log(element.value);
+        if (!parseFloat(element.value) && element.value !== "0") flag = true;
+    });
+    if (flag) return "Choose correct X. <br>";
 	return "";
 }
 
@@ -24,8 +31,8 @@ function validate_y(y) {
 }
 
 function validate_r(r) {
-	if (parseInt(r.value))
+	if (parseFloat(r) && r >= 0)
 		return "";
-	return "Please, choose R.";
+	return "Please, choose correct R.";
 }
 
