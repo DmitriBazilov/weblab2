@@ -18,7 +18,8 @@
     </properties>
 
     <dependencies>
-        <dependency>
+    <!-- https://mvnrepository.com/artifact/javax.ejb/ejb-api -->
+       <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.0</version>
@@ -45,6 +46,16 @@
             <artifactId>javax.persistence-api</artifactId>
             <version>2.2</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa</artifactId>
+            <version>4.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
