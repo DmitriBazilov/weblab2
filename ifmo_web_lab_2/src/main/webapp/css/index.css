@@ -1,0 +1,150 @@
+html {
+	background-color: #141414;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+.menu {
+	display: flex;
+	align-items: center;
+	margin: auto;
+	margin-top: 10px;
+	width: 80%;
+	height: auto;
+	max-height: 1000px;
+	background-color: #666666;
+	border-radius: 20px;
+}
+
+.graph {
+	padding-top: 4px;
+	padding-left: 30px;
+	text-align: left;
+	width: 50%;
+}
+
+.data_input {
+	width: 50%;
+	text-align: left;
+	align-items: end;
+}
+
+.x_input {
+	display: flex;
+	margin-bottom: 20px;
+}
+
+.y_input {
+	display: flex;
+}
+
+.text_input {
+	color: black;
+	text-align: center;
+	font-size: 20px;
+	background-color: #666666;
+	border: 2px solid black;
+	border-radius: 10px;
+	width: 50%;
+	margin-left: 5px;
+}
+
+
+/*.y_input > input {*/
+/*	color: black;*/
+/*	text-align: center;*/
+/*	font-size: 20px;*/
+/*	background-color: #666666; */
+/*	border: 2px solid black;*/
+/*	border-radius: 10px;*/
+/*	width: 50%;*/
+/*	margin-left: 5px;*/
+/*}*/
+
+.r_input {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-top: 20px;
+}
+
+.r_input_table {
+	overflow: auto;
+	border-color: black;
+	border-collapse: collapse;
+	border-width: 2px;
+	height: auto;
+	margin: 0px;
+	margin-left: 10px;
+}
+
+.r_input_table td {
+	padding: 0px 7px 0px 7px;
+	color: black;
+	border-color: black;
+	border-width: 2px;
+	background-color: #666666;
+}
+
+.buttons {
+	margin-top: 20px;
+}
+
+button {
+	width: 40%;
+	background-color: #666666;
+	color: black;
+	border: 2px solid black;
+	border-radius: 10px;
+	font-size: 20px;
+}
+
+.error {
+	margin: auto;
+	color: red;
+	font-size: 20px;
+	width: auto;
+}
+
+.table {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+	margin-top: 10px;
+
+}
+
+span {
+	width: max-content;
+	color: black;
+	font-size: 20px;
+}
+
+table {
+	margin-top: 10px;
+	border-radius: 10px;
+	overflow: hidden;
+	border: 1px solid white;
+	border-collapse: collapse;
+}
+
+th, td {
+	padding: 5px 10px;
+	border: 1px solid white;
+	border-color: #888888;
+	color: white;
+	background-color: #333333;
+	font-size: 22px;
+}
+
+::placeholder {
+	color: black;
+	text-align: center;
+}
+

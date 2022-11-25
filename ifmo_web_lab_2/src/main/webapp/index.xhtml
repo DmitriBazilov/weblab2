@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: R355-W-10-Stud
+  Date: 2022-11-24
+  Time: 22:36
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Dmitri project</title>
+    <link rel="stylesheet" href="css/header.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+</h:head>
+
+<h:body>
+    <header class="header">
+        <a href="https://github.com/DmitriBazilov">Bazilov Dmitri P32141 / 142605</a>
+    </header>
+
+    <div class="menu">
+        <div class="graph">
+            <img src="img/areas.png" alt="GRAPH"/>
+        </div>
+
+        <h:form id="formSend" styleClass="data_input">
+
+            <div class="x_input">
+                <span>Choose X: </span>
+                <h:inputText styleClass="text_input" id="x_value" value="#{hitCheck.x}" required="true" requiredMessage="Incorrect X"/>
+                <h:message styleClass="error" for="x_value" id="x_error"/>
+            </div>
+
+            <div class="y_input">
+                <span>Input Y: </span>
+                <h:inputText styleClass="text_input" style="margin-left: 25px" id="y_value" value="#{hitCheck.y}" required="true" requiredMessage="Incorrect Y"/>
+                <h:message styleClass="error" for="y_value" id="y_error"/>
+            </div>
+
+            <div class="r_input">
+                <span>Choose R: </span>
+                <h:selectOneRadio styleClass="r_input_table" id="r_value" value="#{hitCheck.r}" required="true" requiredMessage="Choose R">
+                    <f:selectItem itemValue="1" itemLabel="1"/>
+                    <f:selectItem itemValue="2" itemLabel="2"/>
+                    <f:selectItem itemValue="3" itemLabel="3"/>
+                    <f:selectItem itemValue="4" itemLabel="4"/>
+                    <f:selectItem itemValue="5" itemLabel="5"/>
+                </h:selectOneRadio>
+                <h:message styleClass="error" for="r_value" id="r_error"/>
+            </div>
+
+            <h:commandButton value="Submit" action="#{hitCheck.save()}">
+                <f:ajax execute="@form" render="result_table x_error y_error r_error"></f:ajax>
+
+            </h:commandButton>
+        </h:form>
+    </div>
+
+    <div class="table">
+        <h:dataTable id="result_table" value="#{table.hits}" var="hit">
+
+            <h:column>
+                <f:facet name="header">X</f:facet>
+                #{hit.x}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Y</f:facet>
+                #{hit.y}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">R</f:facet>
+                #{hit.r}
+            </h:column>
+
+        </h:dataTable>
+    </div>
+</h:body>
+
+</html>
