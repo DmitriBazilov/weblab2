@@ -1,23 +1,29 @@
 package com.dmitri.ifmo_web_lab_2.model;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ApplicationScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 @ManagedBean
-@SessionScoped
+@ApplicationScoped
 public class Table implements Serializable {
-    private List<HitCheck> hits = new ArrayList<>();
+    Map<String, List<HitCheck>> hits = new HashMap<>();
 
     public Table() {}
 
-    public List<HitCheck> getHits() {
+    public Map<String, List<HitCheck>> getHits() {
         return hits;
     }
 
-    public void setHits(List<HitCheck> hits) {
+    public void setHits(Map<String, List<HitCheck>> hits) {
         this.hits = hits;
+    }
+
+    public List<HitCheck> getHitsBySessionId(String sessionId) {
+        return hits.get(sessionId) == null ? new ArrayList<HitCheck>() : hits.get(sessionId);
     }
 }

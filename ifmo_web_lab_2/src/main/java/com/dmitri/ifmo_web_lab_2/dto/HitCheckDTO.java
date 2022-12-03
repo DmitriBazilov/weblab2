@@ -1,16 +1,10 @@
 package com.dmitri.ifmo_web_lab_2.dto;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-@Entity
 public class HitCheckDTO implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
     private Long id;
     private Double x;
     private Double y;
@@ -18,12 +12,12 @@ public class HitCheckDTO implements Serializable {
     private ZonedDateTime hitDate;
     private Long executeTime;
     private Boolean result;
+    private String sessionId;
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Id
     public Long getId() {
         return id;
     }
@@ -74,6 +68,14 @@ public class HitCheckDTO implements Serializable {
 
     public void setResult(Boolean result) {
         this.result = result;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     @Override

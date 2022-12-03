@@ -63,7 +63,7 @@
     </div>
 
     <div class="table">
-        <h:dataTable id="result_table" value="#{table.hits}" var="hit">
+        <h:dataTable id="result_table" value="#{table.getHitsBySessionId(sessionGetter.getSessionId())}" var="hit">
 
             <h:column>
                 <f:facet name="header">X</f:facet>
