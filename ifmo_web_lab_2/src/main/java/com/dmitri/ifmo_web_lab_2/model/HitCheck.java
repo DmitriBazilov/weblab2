@@ -4,6 +4,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import java.io.Serializable;
+
+import com.dmitri.ifmo_web_lab_2.database.DatabaseConnector;
 import com.dmitri.ifmo_web_lab_2.dto.HitCheckDTO;
 import com.dmitri.ifmo_web_lab_2.util.SessionGetter;
 import com.dmitri.ifmo_web_lab_2.repository.*;
@@ -13,6 +15,9 @@ import java.util.List;
 @ManagedBean
 @RequestScoped
 public class HitCheck implements Serializable {
+    
+    @ManagedProperty(value = "#{databaseConnector}", name = "databaseConnector")
+    private DatabaseConnector databaseConnector;
     
     @ManagedProperty(value = "#{hitCheckRepositoryImpl}", name = "hitCheckRepository")
     private HitCheckRepository hitCheckRepository;

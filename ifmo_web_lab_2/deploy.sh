@@ -1,1 +1,1 @@
-cp target/ifmo_web_lab_2-1.0-SNAPSHOT.war ~/Documents/web-itmo/lab2/wildfly-10.0.0.Final/standalone/deployments
+cp target/ifmo_web_lab_2-1.0-SNAPSHOT.war ~/Documents/web/wildfly-preview-26.0.1.Final/standalone/deployments

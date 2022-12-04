@@ -11,7 +11,7 @@ import java.io.Serializable;
 @ManagedBean
 @ApplicationScoped
 public class HitCheckRepositoryImpl implements HitCheckRepository, Serializable {
-
+    
     public HitCheckRepositoryImpl() {}
     
     public void add(HitCheckDTO hit) {
