@@ -15,10 +15,7 @@ import java.util.List;
 @ManagedBean
 @RequestScoped
 public class HitCheck implements Serializable {
-    
-    @ManagedProperty(value = "#{databaseConnector}", name = "databaseConnector")
-    private DatabaseConnector databaseConnector;
-    
+   
     @ManagedProperty(value = "#{hitCheckRepositoryImpl}", name = "hitCheckRepository")
     private HitCheckRepository hitCheckRepository;
 
