@@ -1,11 +1,10 @@
 package com.dmitri.ifmo_web_lab_2.repository;
 
-import com.dmitri.ifmo_web_lab_2.model.Table;
-import com.dmitri.ifmo_web_lab_2.model.HitCheck;
 import com.dmitri.ifmo_web_lab_2.database.DatabaseConnector;
 import com.dmitri.ifmo_web_lab_2.dto.HitCheckDTO;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -27,6 +26,11 @@ public class HitCheckRepositoryImpl implements HitCheckRepository, Serializable 
     }
 
     public HitCheckRepositoryImpl() {}
+
+    @PostConstruct
+    public void initTable() {
+        //TODO initialize table
+    }
     
     public void add(HitCheckDTO hit) {
         try (Connection connection = databaseConnector.getConnection()) {
