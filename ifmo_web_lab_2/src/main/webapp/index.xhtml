@@ -17,9 +17,11 @@
     <title>Dmitri project</title>
     <link rel="stylesheet" href="css/header.css"/>
     <link rel="stylesheet" href="css/index.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/submit.js"></script>
 </h:head>
 
-<h:body>
+<h:body onload="setTimezone()">
     <header class="header">
         <a href="https://github.com/DmitriBazilov">Bazilov Dmitri P32141 / 142605</a>
     </header>
@@ -55,9 +57,10 @@
                 <h:message styleClass="error" for="r_value" id="r_error"/>
             </div>
 
-            <h:commandButton value="Submit" action="#{hitCheck.save()}">
-                <f:ajax execute="@form" render="result_table x_error y_error r_error"></f:ajax>
+            <h:inputHidden value="#{hitCheck.timezone}" id="timezone"/>
 
+            <h:commandButton onclick="setTimezone()" value="Submit" action="#{hitCheck.save()}">
+                <f:ajax execute="@form" render="result_table x_error y_error r_error"></f:ajax>
             </h:commandButton>
         </h:form>
     </div>
@@ -78,6 +81,21 @@
             <h:column>
                 <f:facet name="header">R</f:facet>
                 #{hit.r}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Current Time</f:facet>
+                #{hit.getCurrentTimeAsString()}
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header">execute Time</f:facet>
+                #{hit.executeTime}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Result</f:facet>
+                #{hit.result}
             </h:column>
 
         </h:dataTable>
