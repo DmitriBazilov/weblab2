@@ -18,7 +18,13 @@
     <link rel="stylesheet" href="css/header.css"/>
     <link rel="stylesheet" href="css/index.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" charset="UTF-8"
+            src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css"/>
     <script src="js/submit.js"></script>
+    <script src="js/tableWorker.js"></script>
+    <script src="js/validator.js"></script>
+    <script src="js/graph.js"></script>
 </h:head>
 
 <h:body onload="setTimezone()">
@@ -28,7 +34,7 @@
 
     <div class="menu">
         <div class="graph">
-            <img src="img/areas.png" alt="GRAPH"/>
+            <div id="jxgbox" class="jxgbox" style="width:300px; height:300px; margin-left:30px;"></div>
         </div>
 
         <h:form id="formSend" styleClass="data_input">
@@ -47,7 +53,9 @@
 
             <div class="r_input">
                 <span>Choose R: </span>
-                <h:selectOneRadio styleClass="r_input_table" id="r_value" value="#{hitCheck.r}" required="true" requiredMessage="Choose R">
+                <h:selectOneRadio styleClass="r_input_table" id="r_value" 
+                value="#{hitCheck.r}"
+                required="true" requiredMessage="Choose R">
                     <f:selectItem itemValue="1" itemLabel="1"/>
                     <f:selectItem itemValue="2" itemLabel="2"/>
                     <f:selectItem itemValue="3" itemLabel="3"/>
