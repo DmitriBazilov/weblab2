@@ -1,11 +1,14 @@
 function initialize_table(board, points) {
-    let tBody = document.getElementById('table_body');
+    let tBody = document.querySelector('#result_table > tbody');
+    console.log(tBody);
     for (let row of tBody.rows) {
-        var x = parseFloat(row.cells.item(0).innerText);
-        var y = parseFloat(row.cells.item(1).innerText);
-        var r = parseInt(row.cells.item(2).innerText);
-        var hit = row.cells.item(5).innerText === 'true';
-        points[r].push(createPoint(board, x, y, hit));
+        var x = parseFloat(row.cells.item(0).innerText.trim());
+        var y = parseFloat(row.cells.item(1).innerText.trim());
+        var r = parseInt(row.cells.item(2).innerText.trim());
+        console.log(r);
+        var hit = row.cells.item(5).innerText.trim() === 'true';
+        if (r)
+            points[r].push(createPoint(board, x, y, hit));
     }
 }
 

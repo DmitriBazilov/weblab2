@@ -29,7 +29,11 @@ public class HitCheckRepositoryImpl implements HitCheckRepository, Serializable 
 
     @PostConstruct
     public void initTable() {
-        //TODO initialize table
+        try (Connection connection = databaseConnector.getConnection()) {
+            System.out.println(connection);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
     
     public void add(HitCheckDTO hit) {

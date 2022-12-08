@@ -1,7 +1,10 @@
+serverPoints = [];
+board = null
+pointsByRadius = {};
+
 $(document).ready(function () {
     // let colors = ['#e196fa', '#3ad6bc', '#f0f022', '#0202ab', '#d15102'];
-    let board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-6, 6, 6, -6], axis: true, showCopyright: false});
-    let pointsByRadius = {};
+    board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-6, 6, 6, -6], axis: true, showCopyright: false});
     let figuresByRadius = {};
     var r_selector = $('input[name="formSend:r_value"]');
     console.log(r_selector);
@@ -12,12 +15,12 @@ $(document).ready(function () {
         figuresByRadius[value] = [];
     });
     initialize_table(board, pointsByRadius);
+    hideAllPoints(pointsByRadius);
     $('input[type="radio"]').on('click change', function(e){
         clearAllFigures(board, figuresByRadius);
         r_input = e.target;
-        //hideAllPoints(board, pointsByRadius);  TODO realize function
-        console.log(e.target); //get needed <input>
-        console.log(document.querySelector('#result_table'));
+        hideAllPoints(pointsByRadius);  //TODO realize function
+        updatePoints();
         //TODO refactor change handler
         if (parseFloat(r_input.value) > 0 && r_input.checked) {
             let newRadius = r_input.value;
@@ -29,9 +32,7 @@ $(document).ready(function () {
             let circle = createCircle(board, newRadius, color, layer);
             figuresByRadius[newRadius] = [rectangle, triangle, circle];
             if (!pointsByRadius[newRadius]) pointsByRadius[newRadius] = []; 
-            pointsByRadius[newRadius].forEach(function (point) {
-                point.showElement();
-            });
+            drawPointsByR(newRadius);
             //renderFiguresByRadius(figuresByRadius, colors);
         } else {
             console.log("DAUN");
@@ -84,23 +85,24 @@ $(document).ready(function () {
     //     });
     //     clean_table();
     // });
-    //
-    // board.on("down", function (event) {
-    //     if (event.button === 2 || event.target.className === 'JXG_navigation_button') {
-    //         return;
-    //     }
-    //     if (check_r()) {
-    //         let coords = board.getUsrCoordsOfMouse(event);
-    //         let all_r = document.querySelectorAll('input[type="checkbox"][name="R"]:checked');
-    //         console.log(all_r);
-    //         all_r.forEach(function (r) {
-    //             sendForm(board, pointsByRadius, coords[0], coords[1], r.value);
-    //         });
-    //     } else {
-    //         var alrt = document.getElementById('alert');
-    //         alrt.innerHTML = "<strong>You should choose correct R</strong>"
-    //     }
-    // });
+
+    board.on("down", function (event) {
+        if (event.button === 2 || event.target.className === 'JXG_navigation_button') {
+            return;
+        }
+        if (check_r()) {
+            let coords = board.getUsrCoordsOfMouse(event);
+            let choosed_r = document.querySelector('[name="formSend:r_value"]:checked');
+            $('[id="formSend:x_value"]').val(coords[0].toFixed(2));
+            $('[id="formSend:y_value"]').val(coords[1].toFixed(2));
+            $('[id="formSend:r_value"]').val(choosed_r.value);
+            $('#formSend input[type="submit"]').click();
+        } else {
+            var alrt = document.getElementById('alert');
+            alrt.innerHTML = "<strong>You should choose correct R</strong>"
+        }
+        event.preventDefault();
+    });
 });
 
 function clearAllFigures(board, figures) {
@@ -109,9 +111,9 @@ function clearAllFigures(board, figures) {
     let r_array = Array.from(r_selector);
 
     r_array.forEach(function (radius, index) {
-        console.log(radius);
         if (parseFloat(radius.value))
             clearFigures(board, figures[radius.value]);
+        figures[radius.value] = [];
     });
 }
 
@@ -125,13 +127,43 @@ function clearFigures(board, figures) {
     figures = [];
 }
 
+function hideAllPoints(radiusPoints) {
+    for (var points in radiusPoints) {
+        radiusPoints[points].forEach(point => {
+            console.log(point);
+            point.hideElement();
+        });    
+    }
+}
+
+function clearPoints() {
+    hideAllPoints(pointsByRadius);
+    for (var idx in pointsByRadius) {
+        pointsByRadius[idx] = [];
+    }
+}
+
+function drawPointsByR(radius) {
+    if ($('[name="formSend:r_value"]:checked').length == 0) return; 
+    console.log(radius);
+    console.log(serverPoints);
+    console.log(pointsByRadius);
+    for (point in serverPoints) {
+        if (serverPoints[point].r == radius) {
+            p = (createPoint(board, serverPoints[point].x, serverPoints[point].y, serverPoints[point].hit));
+            pointsByRadius[radius].push(p);            
+        }
+    }
+}
+
 function createRectangle(board, r, color, figLayer) {
     let rectanglePoint1 = board.create('point', [0, 0], {name: '', fixed: true, visible: false});
     let rectanglePoint2 = board.create('point', [-r, 0], {name: '', fixed: true, visible: false});
     let rectanglePoint3 = board.create('point', [-r, r / 2], {name: '', fixed: true, visible: false});
     let rectanglePoint4 = board.create('point', [0, r / 2], {name: '', fixed: true, visible: false});
     return board.create('polygon', [rectanglePoint1, rectanglePoint2, rectanglePoint3, rectanglePoint4], {
-        fillColor: color, fillOpacity: 1, layer: figLayer
+        fillColor: color, fillOpacity: 1, layer: figLayer, highlight: false,
+        borders: {strokeColor: '#000', highlight: false, layer: 7}
     });
 }
 
@@ -140,7 +172,8 @@ function createTriangle(board, r, color, figLayer) {
     let trianglePoint2 = board.create('point', [r, 0], {name: '', fixed: true, visible: false});
     let trianglePoint3 = board.create('point', [0, r / 2], {name: '', fixed: true, visible: false});
     return board.create('polygon', [trianglePoint1, trianglePoint2, trianglePoint3], {
-        fillColor: color, fillOpacity: 1, layer: figLayer
+        fillColor: color, fillOpacity: 1, layer: figLayer, highlight: false,
+        borders: {strokeColor: '#000', highlight: false, layer: 7}
     });
 }
 
@@ -149,45 +182,17 @@ function createCircle(board, r, color, figLayer) {
     let circlePoint2 = board.create('point', [0, -r], {name: '', fixed: true, visible: false});
     let centerPoint = board.create('point', [0, 0], {name: '', fixed: true, visible: false});
 
-    return board.create('sector', [centerPoint, circlePoint2, circlePoint1], {fillColor: color, fillOpacity: 1, layer: figLayer});
+    return board.create('sector', [centerPoint, circlePoint2, circlePoint1], {
+        fillColor: color, fillOpacity: 1, layer: figLayer, highlight: false,
+        strokeColor: "#000",
+        borders: {strokeColor: '#000', highlight: false, layer: 7}
+    });
 }
 
 
 function createPoint(board, x, y, hit) {
     let color = hit ? "#7ce57c" : "#dc4a4a";
     return board.create("point", [x, y], {
-        name: '', fixed: true, visible: false, fillColor: color, fillOpacity: 1, strokewidth: 0
-    });
-}
-
-function renderFiguresByRadius(figuresByRadius, colors) {
-    console.log(figuresByRadius);
-    let r_selector = document.querySelectorAll('input[name="R"]');
-    let r_array = Array.from(r_selector);
-    let figLayer = 7;
-
-    r_array.forEach(function (radius, index) {
-        console.log(figuresByRadius[radius.value]);
-        if (!figuresByRadius[radius.value]) figuresByRadius[radius.value] = []
-        figuresByRadius[radius.value].forEach(function (figure) {
-            figure.setAttribute({fillColor: colors[index],
-                fillOpacity: 1,
-                layer: figLayer,
-                strokeColor: "#000",
-                strokeWidth: "1px",
-                strokeOpacity: 1,
-                borders: {
-                    withLabel: false,
-                    strokeColor: "#000",
-                    strokeWidth: "1px",
-                    strokeOpacity: 1,
-                    strokeWidth: 1,
-                    highlight: false,
-                    layer: 8
-                },
-                highlight: false
-            });
-        });
-        figLayer--;
+        name: '', fixed: true, visible: true, fillColor: color, fillOpacity: 1, strokewidth: 0
     });
 }

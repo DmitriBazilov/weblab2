@@ -26,4 +26,13 @@ public class Table implements Serializable {
     public List<HitCheck> getHitsBySessionId(String sessionId) {
         return hits.get(sessionId) == null ? new ArrayList<HitCheck>() : hits.get(sessionId);
     }
+
+    public void removeSessionDots(String sessionId) {
+        List<HitCheck> sessionHits = hits.get(sessionId);
+        if (sessionHits == null) {
+            sessionHits = new ArrayList<HitCheck>();
+        } else {
+            sessionHits.clear();
+        }
+    }
 }

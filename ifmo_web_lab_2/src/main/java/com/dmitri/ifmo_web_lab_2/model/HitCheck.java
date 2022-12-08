@@ -10,6 +10,7 @@ import com.dmitri.ifmo_web_lab_2.database.DatabaseConnector;
 import com.dmitri.ifmo_web_lab_2.dto.HitCheckDTO;
 import com.dmitri.ifmo_web_lab_2.util.SessionGetter;
 import com.dmitri.ifmo_web_lab_2.repository.*;
+import com.dmitri.ifmo_web_lab_2.util.AreaChecker;
 import java.time.ZonedDateTime;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -26,6 +27,9 @@ public class HitCheck implements Serializable {
     @ManagedProperty(value = "#{table}", name = "table")
     private Table table;
 
+    @ManagedProperty(value = "#{areaChecker}", name = "areaChecker")
+    private AreaChecker areaChecker;
+
     @ManagedProperty(value = "#{sessionGetter}", name = "sessionGetter")
     private SessionGetter sessionGetter;
 
@@ -33,8 +37,8 @@ public class HitCheck implements Serializable {
     private Double y;
     private Double r;
     private Instant currentTime = Instant.now();
-    private Long executeTime = 0L;
-    private Boolean result = false;
+    private Long executeTime;
+    private Boolean result;
     private Integer timezone;
 
     public Double getX() {
@@ -109,6 +113,14 @@ public class HitCheck implements Serializable {
         this.table = table;
     }
 
+    public AreaChecker getAreaChecker() {
+        return areaChecker;
+    }
+
+    public void setAreaChecker(AreaChecker areaChecker) {
+        this.areaChecker = areaChecker;
+    }
+
     public SessionGetter getSessionGetter() {
         return sessionGetter;
     }
@@ -119,13 +131,15 @@ public class HitCheck implements Serializable {
 
     public void save() {
         saveTimezone(timezone);
+        result = areaChecker.checkHitInArea(this);
+        executeTime = System.currentTimeMillis() - currentTime.toEpochMilli();
         HitCheckDTO dto = new HitCheckDTO();
         dto.setX(x);
         dto.setY(y);
         dto.setR(r);
         dto.setHitDate((currentTime.atZone(ZoneId.of("UTC"))).plusHours(timezone));
-        dto.setExecuteTime(2L);
-        dto.setResult(false);
+        dto.setExecuteTime(executeTime);
+        dto.setResult(result);
         System.out.println(dto);
         List<HitCheck> hits = table.getHitsBySessionId(sessionGetter.getSessionId());
         hits.add(this);

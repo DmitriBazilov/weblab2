@@ -29,8 +29,8 @@ body {
 
 .data_input {
 	width: 50%;
-	text-align: left;
-	align-items: end;
+	text-align: center;
+	align-items: center;
 }
 
 .x_input {
@@ -94,13 +94,16 @@ body {
 	margin-top: 20px;
 }
 
-button {
-	width: 40%;
+.button {
+    display: block;
+    width: 40%;
 	background-color: #666666;
 	color: black;
 	border: 2px solid black;
 	border-radius: 10px;
 	font-size: 20px;
+    margin: auto;
+    margin-top: 20px;
 }
 
 .error {

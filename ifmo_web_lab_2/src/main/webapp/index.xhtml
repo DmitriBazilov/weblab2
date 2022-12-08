@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Created by IntelliJ IDEA.
-  User: R355-W-10-Stud
-  Date: 2022-11-24
-  Time: 22:36
--->
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml"
 
-<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
@@ -36,7 +31,7 @@
         <div class="graph">
             <div id="jxgbox" class="jxgbox" style="width:300px; height:300px; margin-left:30px;"></div>
         </div>
-
+        
         <h:form id="formSend" styleClass="data_input">
 
             <div class="x_input">
@@ -67,14 +62,35 @@
 
             <h:inputHidden value="#{hitCheck.timezone}" id="timezone"/>
 
-            <h:commandButton onclick="setTimezone()" value="Submit" action="#{hitCheck.save()}">
-                <f:ajax execute="@form" render="result_table x_error y_error r_error"></f:ajax>
+            <h:commandButton onclick="setTimezone()" styleClass="button" value="Submit" action="#{hitCheck.save()}">
+                <f:ajax execute="@form" render="result_table x_error y_error r_error script"></f:ajax>
             </h:commandButton>
         </h:form>
     </div>
+    <h:panelGroup id="script">
+        <h:outputScript>
+            function updatePoints() {
+            clearPoints();
+            serverPoints = [
+            <ui:repeat value="#{table.getHitsBySessionId(sessionGetter.getSessionId())}" var="hit">
+                {x: #{hit.x}, y: #{hit.y}, r: #{hit.r}, hit: #{hit.result}},
+            </ui:repeat>
+            ];
+            console.log(serverPoints);
+            drawPointsByR($('[name="formSend:r_value"]:checked').val());
+            }
+            updatePoints();
+        </h:outputScript>
+    </h:panelGroup>
+
+    <h:commandButton styleClass="button" value="Clean" 
+    action="#{table.removeSessionDots(sessionGetter.getSessionId())}">
+        <f:ajax render="result_table script"/>
+    </h:commandButton>
 
     <div class="table">
-        <h:dataTable id="result_table" value="#{table.getHitsBySessionId(sessionGetter.getSessionId())}" var="hit">
+        <h:dataTable id="result_table" 
+        value="#{table.getHitsBySessionId(sessionGetter.getSessionId())}" var="hit">
 
             <h:column>
                 <f:facet name="header">X</f:facet>

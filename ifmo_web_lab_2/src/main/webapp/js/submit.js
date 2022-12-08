@@ -4,9 +4,8 @@ function setTimezone() {
 }
 
 function check_r() {
-	var all_r = document.querySelectorAll('input[type="checkbox"][name="R"]:checked');
-    all_r.forEach(function (r) {
-        if (validate_r(r.value)) return false;
-    });
+    var choosed_r = $('[name="formSend:r_value"]:checked').val();
+    if (validate_r(choosed_r))
+        return false;
     return true;
 }
