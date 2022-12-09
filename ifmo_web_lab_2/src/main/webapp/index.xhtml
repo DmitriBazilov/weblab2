@@ -73,7 +73,7 @@
 
             <h:inputHidden value="#{hitCheck.timezone}" id="timezone"/>
 
-            <h:commandButton onclick="setTimezone()" styleClass="button" value="Submit" action="#{hitCheck.save()}">
+            <h:commandButton onclick="setTimezone();checkY()" styleClass="button" value="Submit" action="#{hitCheck.save()}">
                 <f:ajax execute="@form" render="result_table x_error y_error r_error script"></f:ajax>
             </h:commandButton>
         </h:form>

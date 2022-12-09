@@ -4,6 +4,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import java.io.Serializable;
 
 import com.dmitri.ifmo_web_lab_2.database.DatabaseConnector;
@@ -169,5 +170,12 @@ public class HitCheck implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         context.getExternalContext().getSessionMap().putIfAbsent("timezone", 0);
         return (Integer) context.getExternalContext().getSessionMap().get("timezone");
+    }
+
+    public void yChangeListener(ValueChangeEvent event) {
+        if (event.getNewValue() == null) return;
+        String newY = event.getNewValue().toString();
+        newY = newY.replace(',', '.');
+        y = Double.valueOf(newY);
     }
 }

@@ -26,9 +26,8 @@ $(document).ready(function () {
     $('input[type="radio"]').on('click change', function(e){
         clearAllFigures(board, figuresByRadius);
         r_input = e.target;
-        hideAllPoints(pointsByRadius);  //TODO realize function
+        hideAllPoints(pointsByRadius); 
         updatePoints();
-        //TODO refactor change handler
         if (parseFloat(r_input.value) > 0 && r_input.checked) {
             let newRadius = r_input.value;
             console.log(newRadius);
@@ -40,58 +39,11 @@ $(document).ready(function () {
             figuresByRadius[newRadius] = [rectangle, triangle, circle];
             if (!pointsByRadius[newRadius]) pointsByRadius[newRadius] = []; 
             drawPointsByR(newRadius);
-            //renderFiguresByRadius(figuresByRadius, colors);
         } else {
-            console.log("DAUN");
-            var alrt = document.getElementById('alert');
+            var alrt = document.getElementById('formSend:r_error');
             alrt.innerHTML = "<strong>Incorrect R</strong>";
         }
     });
-    //
-    // $('#btnSend').click(function (event) {
-    //     var x = document.querySelectorAll('input[type="checkbox"][name="X"]:checked');
-    //     var y = document.getElementById('y_text');
-    //     var all_r = document.querySelectorAll('input[type="checkbox"][name="R"]:checked');
-    //     var r = -1;
-    //     for (const checkbox of all_r) {
-    //         if (parseFloat(checkbox.value)) {
-    //             r = Math.max(r, checkbox.value);
-    //         } else {
-    //             r = "error";
-    //             break;
-    //         }
-    //     }
-    //     var result = validate_values(x, y, r);
-    //     var alrt = document.getElementById('alert');
-    //     if (result !== "") {
-    //         alrt.innerHTML = "<strong>" + result + "</strong>";
-    //     } else {
-    //         x.forEach(function (xNumber) {
-    //             sendForm(board, pointsByRadius, xNumber.value, y.value.replace(",", "."), r);
-    //         });
-    //     }
-    // });
-    //
-    // $('#btnReset').click(function (event) {
-    //     r_selector.each(function () {
-    //         clearFigures(board, figuresByRadius[this.value])
-    //         figuresByRadius[this.value] = [];
-    //         let idxRadius = this.value;
-    //         pointsByRadius[idxRadius].forEach(function (point) {
-    //             point.hideElement();
-    //         });
-    //         renderFiguresByRadius(figuresByRadius, colors);
-    //     });
-    // });
-    //
-    // $('#btnClean').click(function (event) {
-    //     r_selector.each(function () {
-    //         let idxRadius = $(this).val();
-    //         board.removeObject(pointsByRadius[idxRadius]);
-    //         pointsByRadius[idxRadius] = [];
-    //     });
-    //     clean_table();
-    // });
 
     board.on("down", function (event) {
         if (event.button === 2 || event.target.className === 'JXG_navigation_button') {
@@ -101,14 +53,14 @@ $(document).ready(function () {
             let coords = board.getUsrCoordsOfMouse(event);
             let choosed_r = document.querySelector('[name="formSend:r_value"]:checked');
             let x = $('[id="formSend:x_value"]').val(), y = $('[id="formSend:y_value"]').val();
-            $('[id="formSend:x_value"]').val(coords[0].toFixed(2));
-            $('[id="formSend:y_value"]').val(coords[1].toFixed(2));
+            $('[id="formSend:x_value"]').val(coords[0].toFixed(6));
+            $('[id="formSend:y_value"]').val(coords[1].toFixed(6));
             $('[id="formSend:r_value"]').val(choosed_r.value);
             $('#formSend input[type="submit"]').click();
             $('[id="formSend:x_value"]').val(x);
             $('[id="formSend:y_value"]').val(y);
         } else {
-            var alrt = document.getElementById('alert');
+            var alrt = document.getElementById('formSend:r_error');
             alrt.innerHTML = "<strong>You should choose correct R</strong>"
         }
         event.preventDefault();
