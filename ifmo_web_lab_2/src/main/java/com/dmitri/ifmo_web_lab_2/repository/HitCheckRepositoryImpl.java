@@ -73,8 +73,7 @@ public class HitCheckRepositoryImpl implements HitCheckRepository, Serializable 
                 PreparedStatement removeHits = connection.prepareStatement(removeQuery);
             ) {
             removeHits.setString(1, sessionId);
-            ResultSet rs = removeHits.executeQuery();
-
+            removeHits.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

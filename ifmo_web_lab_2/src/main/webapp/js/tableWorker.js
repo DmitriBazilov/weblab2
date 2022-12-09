@@ -1,4 +1,6 @@
 function initialize_table(board, points) {
+    $('[name="formSend:x_value"]').val($('#x_slider').val());
+
     let tBody = document.querySelector('#result_table > tbody');
     console.log(tBody);
     for (let row of tBody.rows) {

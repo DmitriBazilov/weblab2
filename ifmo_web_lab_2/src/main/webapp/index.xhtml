@@ -6,9 +6,7 @@
 
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ace="http://www.icefaces.org/icefaces/components"
-      xmlns:ice="http://www.icesoft.com/icefaces/component">
+              xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
     <title>Dmitri project</title>
@@ -27,6 +25,9 @@
 <h:body onload="setTimezone()">
     <header class="header">
         <a href="https://github.com/DmitriBazilov">Bazilov Dmitri P32141 / 142605</a>
+        <h:link outcome="jumpToMain">
+            Welcome page
+        </h:link>
     </header>
 
     <div class="menu">
@@ -38,16 +39,21 @@
 
             <div class="x_input">
                 <span>Choose X: </span>
-                <!-- <h:inputText styleClass="text_input" id="x_value" value="#{hitCheck.x}" required="true" requiredMessage="Incorrect X"/> -->
-                <ace:sliderEntry id="x_value" value="#{hitCheck.x}" min="-5" max="5" showLabels="true"/>
-                <h:message styleClass="error" for="x_value" id="x_error"/>
+               <!--  <h:inputText styleClass="text_input" id="x_value" value="#{hitCheck.x}" required="true" requiredMessage="Incorrect X"/> -->
 
-                
+                <input type="range" min="-5" max="5" value="0" class="slider" id="x_slider"/>
+                <span id="slider_value">0</span>
+                <h:inputHidden value="#{hitCheck.x}" id="x_value">
+                    <f:validateDoubleRange minimum="-5" maximum="5" />
+                </h:inputHidden>
+                <h:message styleClass="error" for="x_value" id="x_error"/>
             </div>
 
             <div class="y_input">
                 <span>Input Y: </span>
-                <h:inputText styleClass="text_input" style="margin-left: 25px" id="y_value" value="#{hitCheck.y}" required="true" requiredMessage="Incorrect Y"/>
+                <h:inputText styleClass="text_input" style="margin-left: 25px" id="y_value" value="#{hitCheck.y}" required="true" requiredMessage="Incorrect Y">
+                    <f:validateLength maximum="9" minimum="1" />
+                </h:inputText>
                 <h:message styleClass="error" for="y_value" id="y_error"/>
             </div>
 

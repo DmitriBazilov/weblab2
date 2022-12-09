@@ -6,6 +6,13 @@ $(document).ready(function () {
     // let colors = ['#e196fa', '#3ad6bc', '#f0f022', '#0202ab', '#d15102'];
     board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-6, 6, 6, -6], axis: true, showCopyright: false});
     let figuresByRadius = {};
+
+    $('#x_slider').on('click change', (e) => {
+        $('[name="formSend:x_value"]').val(e.target.value);
+        $('#slider_value').text(e.target.value);
+        console.log(e.target.value);
+    });
+
     var r_selector = $('input[name="formSend:r_value"]');
     console.log(r_selector);
     r_selector.each(function () {
@@ -93,10 +100,13 @@ $(document).ready(function () {
         if (check_r()) {
             let coords = board.getUsrCoordsOfMouse(event);
             let choosed_r = document.querySelector('[name="formSend:r_value"]:checked');
+            let x = $('[id="formSend:x_value"]').val(), y = $('[id="formSend:y_value"]').val();
             $('[id="formSend:x_value"]').val(coords[0].toFixed(2));
             $('[id="formSend:y_value"]').val(coords[1].toFixed(2));
             $('[id="formSend:r_value"]').val(choosed_r.value);
             $('#formSend input[type="submit"]').click();
+            $('[id="formSend:x_value"]').val(x);
+            $('[id="formSend:y_value"]').val(y);
         } else {
             var alrt = document.getElementById('alert');
             alrt.innerHTML = "<strong>You should choose correct R</strong>"
