@@ -140,11 +140,16 @@ public class HitCheck implements Serializable {
         dto.setHitDate((currentTime.atZone(ZoneId.of("UTC"))).plusHours(timezone));
         dto.setExecuteTime(executeTime);
         dto.setResult(result);
-        System.out.println(dto);
+        dto.setSessionId(sessionGetter.getSessionId());
         List<HitCheck> hits = table.getHitsBySessionId(sessionGetter.getSessionId());
         hits.add(this);
         table.getHits().put(sessionGetter.getSessionId(), hits);
         hitCheckRepository.add(dto);
+    }
+
+    public void removeSessionDots(String sessionId) {
+        table.removeSessionDots(sessionId);
+        hitCheckRepository.removeHitsBySessionId(sessionId);
     }
 
     public String getCurrentTimeAsString() {

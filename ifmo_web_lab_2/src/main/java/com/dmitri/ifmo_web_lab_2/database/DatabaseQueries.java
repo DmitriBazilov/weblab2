@@ -15,15 +15,15 @@ public enum DatabaseQueries {
         + "hit_date timestamp, \n"
         + "execute_time bigint, \n"
         + "result boolean, \n" 
-        + "session_id varchar(255), \n"
+        + "session_id varchar(255) \n"
         + "); \n"
     ),
 
-    CLEAR_HITS_BY_SESSIONID("delete from s335102hits where session_id = ?"),
+    DELETE_HITS_BY_SESSION_ID("delete from s335102hits where session_id = ?"),
 
     ADD_HIT("insert into s335102hits" 
-        + "(id, x, y, r, hit_date, execute_time, result, session_id "
-        + "values(?, ?, ?, ?, ?, ?, ?, ?)"
+        + "(id, x, y, r, hit_date, execute_time, result, session_id) "
+        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?);"
     );
 
     private final String query;

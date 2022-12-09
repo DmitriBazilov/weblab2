@@ -6,7 +6,9 @@
 
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component">
 
 <h:head>
     <title>Dmitri project</title>
@@ -36,8 +38,11 @@
 
             <div class="x_input">
                 <span>Choose X: </span>
-                <h:inputText styleClass="text_input" id="x_value" value="#{hitCheck.x}" required="true" requiredMessage="Incorrect X"/>
+                <!-- <h:inputText styleClass="text_input" id="x_value" value="#{hitCheck.x}" required="true" requiredMessage="Incorrect X"/> -->
+                <ace:sliderEntry id="x_value" value="#{hitCheck.x}" min="-5" max="5" showLabels="true"/>
                 <h:message styleClass="error" for="x_value" id="x_error"/>
+
+                
             </div>
 
             <div class="y_input">
@@ -84,7 +89,7 @@
     </h:panelGroup>
 
     <h:commandButton styleClass="button" value="Clean" 
-    action="#{table.removeSessionDots(sessionGetter.getSessionId())}">
+    action="#{hitCheck.removeSessionDots(sessionGetter.getSessionId())}">
         <f:ajax render="result_table script"/>
     </h:commandButton>
 
