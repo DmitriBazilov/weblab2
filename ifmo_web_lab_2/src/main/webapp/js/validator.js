@@ -1,5 +1,4 @@
 function validate_values(x, y, r) {
-
 	result = "";
 	result += validate_x(x)	+ validate_y(y) + validate_r(r);
 	return result;

@@ -2,10 +2,22 @@ serverPoints = [];
 board = null
 pointsByRadius = {};
 
-$(document).ready(function () {
+$(document).ready(function() {
     // let colors = ['#e196fa', '#3ad6bc', '#f0f022', '#0202ab', '#d15102'];
-    board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-6, 6, 6, -6], axis: true, showCopyright: false});
+    board = JXG.JSXGraph.initBoard('jxgbox', { boundingbox: [-6, 6, 6, -6], axis: true, showCopyright: false });
     let figuresByRadius = {};
+
+    $('.x_input .error').on('DOMSubtreeModified', () => {
+        $('.x_input .error').text('Incorrect X');
+    });
+
+    $('.y_input .error').on('DOMSubtreeModified', () => {
+        $('.y_input .error').text('Incorrect Y');
+    });
+
+    $('.r_input .error').on('DOMSubtreeModified', () => {
+        $('.r_input .error').text('Incorrect R');
+    });
 
     $('#x_slider').on('click change', (e) => {
         $('[name="formSend:x_value"]').val(e.target.value);
@@ -13,9 +25,9 @@ $(document).ready(function () {
         console.log(e.target.value);
     });
 
-    var r_selector = $('input[name="formSend:r_value"]');
+    let r_selector = $('input[name="formSend:r_value"]');
     console.log(r_selector);
-    r_selector.each(function () {
+    r_selector.each(function() {
         let value = this.value;
         console.log(value);
         pointsByRadius[value] = [];
@@ -23,10 +35,10 @@ $(document).ready(function () {
     });
     initialize_table(board, pointsByRadius);
     hideAllPoints(pointsByRadius);
-    $('input[type="radio"]').on('click change', function(e){
+    $('input[type="radio"]').on('click change', function(e) {
         clearAllFigures(board, figuresByRadius);
         r_input = e.target;
-        hideAllPoints(pointsByRadius); 
+        hideAllPoints(pointsByRadius);
         updatePoints();
         if (parseFloat(r_input.value) > 0 && r_input.checked) {
             let newRadius = r_input.value;
@@ -37,15 +49,15 @@ $(document).ready(function () {
             let triangle = createTriangle(board, newRadius, color, layer);
             let circle = createCircle(board, newRadius, color, layer);
             figuresByRadius[newRadius] = [rectangle, triangle, circle];
-            if (!pointsByRadius[newRadius]) pointsByRadius[newRadius] = []; 
+            if (!pointsByRadius[newRadius]) pointsByRadius[newRadius] = [];
             drawPointsByR(newRadius);
         } else {
             var alrt = document.getElementById('formSend:r_error');
-            alrt.innerHTML = "<strong>Incorrect R</strong>";
+            alrt.innerText = "Выберите R";
         }
     });
 
-    board.on("down", function (event) {
+    board.on("down", function(event) {
         if (event.button === 2 || event.target.className === 'JXG_navigation_button') {
             return;
         }
@@ -61,7 +73,7 @@ $(document).ready(function () {
             $('[id="formSend:y_value"]').val(y);
         } else {
             var alrt = document.getElementById('formSend:r_error');
-            alrt.innerHTML = "<strong>You should choose correct R</strong>"
+            alrt.innerHTML = '<span style="color:red;">ВЫБЕРИ R ПЖПЖПЖ</span>'
         }
         event.preventDefault();
     });
@@ -72,14 +84,14 @@ function clearAllFigures(board, figures) {
     let r_selector = document.querySelectorAll('input[name="formSend:r_value"]');
     let r_array = Array.from(r_selector);
 
-    r_array.forEach(function (radius, index) {
+    r_array.forEach(function(radius, index) {
         if (parseFloat(radius.value))
             clearFigures(board, figures[radius.value]);
         figures[radius.value] = [];
     });
 }
-
 function clearFigures(board, figures) {
+
     console.log(figures);
     for (const object of figures) {
         let points = object.ancestors;
@@ -94,7 +106,8 @@ function hideAllPoints(radiusPoints) {
         radiusPoints[points].forEach(point => {
             console.log(point);
             point.hideElement();
-        });    
+            board.removeObject(point);
+        });
     }
 }
 
@@ -106,48 +119,48 @@ function clearPoints() {
 }
 
 function drawPointsByR(radius) {
-    if ($('[name="formSend:r_value"]:checked').length == 0) return; 
+    if ($('[name="formSend:r_value"]:checked').length == 0) return;
     console.log(radius);
     console.log(serverPoints);
     console.log(pointsByRadius);
     for (point in serverPoints) {
         if (serverPoints[point].r == radius) {
             p = (createPoint(board, serverPoints[point].x, serverPoints[point].y, serverPoints[point].hit));
-            pointsByRadius[radius].push(p);            
+            pointsByRadius[radius].push(p);
         }
     }
 }
 
 function createRectangle(board, r, color, figLayer) {
-    let rectanglePoint1 = board.create('point', [0, 0], {name: '', fixed: true, visible: false});
-    let rectanglePoint2 = board.create('point', [-r, 0], {name: '', fixed: true, visible: false});
-    let rectanglePoint3 = board.create('point', [-r, r / 2], {name: '', fixed: true, visible: false});
-    let rectanglePoint4 = board.create('point', [0, r / 2], {name: '', fixed: true, visible: false});
+    let rectanglePoint1 = board.create('point', [0, 0], { name: '', fixed: true, visible: false });
+    let rectanglePoint2 = board.create('point', [-r, 0], { name: '', fixed: true, visible: false });
+    let rectanglePoint3 = board.create('point', [-r, r / 2], { name: '', fixed: true, visible: false });
+    let rectanglePoint4 = board.create('point', [0, r / 2], { name: '', fixed: true, visible: false });
     return board.create('polygon', [rectanglePoint1, rectanglePoint2, rectanglePoint3, rectanglePoint4], {
         fillColor: color, fillOpacity: 1, layer: figLayer, highlight: false,
-        borders: {strokeColor: '#000', highlight: false, layer: 7}
+        borders: { strokeColor: '#000', highlight: false, layer: 7 }
     });
 }
 
 function createTriangle(board, r, color, figLayer) {
-    let trianglePoint1 = board.create('point', [0, 0], {name: '', fixed: true, visible: false});
-    let trianglePoint2 = board.create('point', [r, 0], {name: '', fixed: true, visible: false});
-    let trianglePoint3 = board.create('point', [0, r / 2], {name: '', fixed: true, visible: false});
+    let trianglePoint1 = board.create('point', [0, 0], { name: '', fixed: true, visible: false });
+    let trianglePoint2 = board.create('point', [r, 0], { name: '', fixed: true, visible: false });
+    let trianglePoint3 = board.create('point', [0, r / 2], { name: '', fixed: true, visible: false });
     return board.create('polygon', [trianglePoint1, trianglePoint2, trianglePoint3], {
         fillColor: color, fillOpacity: 1, layer: figLayer, highlight: false,
-        borders: {strokeColor: '#000', highlight: false, layer: 7}
+        borders: { strokeColor: '#000', highlight: false, layer: 7 }
     });
 }
 
 function createCircle(board, r, color, figLayer) {
-    let circlePoint1 = board.create('point', [r, 0], {name: '', fixed: true, visible: false});
-    let circlePoint2 = board.create('point', [0, -r], {name: '', fixed: true, visible: false});
-    let centerPoint = board.create('point', [0, 0], {name: '', fixed: true, visible: false});
+    let circlePoint1 = board.create('point', [r, 0], { name: '', fixed: true, visible: false });
+    let circlePoint2 = board.create('point', [0, -r], { name: '', fixed: true, visible: false });
+    let centerPoint = board.create('point', [0, 0], { name: '', fixed: true, visible: false });
 
     return board.create('sector', [centerPoint, circlePoint2, circlePoint1], {
         fillColor: color, fillOpacity: 1, layer: figLayer, highlight: false,
         strokeColor: "#000",
-        borders: {strokeColor: '#000', highlight: false, layer: 7}
+        borders: { strokeColor: '#000', highlight: false, layer: 7 }
     });
 }
 

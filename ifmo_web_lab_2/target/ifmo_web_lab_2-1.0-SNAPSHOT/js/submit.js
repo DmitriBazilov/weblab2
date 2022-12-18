@@ -4,7 +4,7 @@ function setTimezone() {
 }
 
 function check_r() {
-    var choosed_r = $('[name="formSend:r_value"]:checked').val();
+    let choosed_r = $('[name="formSend:r_value"]:checked').val();
     if (validate_r(choosed_r))
         return false;
     return true;
