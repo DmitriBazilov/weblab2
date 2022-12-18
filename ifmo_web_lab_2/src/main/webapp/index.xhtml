@@ -2,11 +2,12 @@
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-        <html xmlns="http://www.w3.org/1999/xhtml"
-
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-              xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ace="http://www.icefaces.org/icefaces/components"
+    xmlns:ice="http://www.icesoft.com/icefaces/component">
 
 <h:head>
     <title>Dmitri project</title>
@@ -29,6 +30,7 @@
             Welcome page
         </h:link>
     </header>
+    
 
     <div class="menu">
         <div class="graph">
@@ -41,12 +43,14 @@
                 <span>Choose X: </span>
                <!--  <h:inputText styleClass="text_input" id="x_value" value="#{hitCheck.x}" required="true" requiredMessage="Incorrect X"/> -->
 
-                <input type="range" min="-5" max="5" value="0" class="slider" id="x_slider"/>
-                <span id="slider_value">0</span>
-                <h:inputHidden value="#{hitCheck.x}" id="x_value" validatorMessage="X от -5 до 5">
-                    <f:validateDoubleRange minimum="-5" maximum="5" />
-                </h:inputHidden>
-                <h:message styleClass="error" for="x_value" id="x_error" class="error"/>
+                <ace:sliderEntry min="-5" max="5" value="#{hitCheck.x}"/>
+
+                <!-- <input type="range" min="-5" max="5" value="0" class="slider" id="x_slider"/> -->
+                <!-- <span id="slider_value">0</span> -->
+                <!-- <h:inputHidden value="#{hitCheck.x}" id="x_value" validatorMessage="X от -5 до 5"> -->
+                <!--     <f:validateDoubleRange minimum="-5" maximum="5" /> -->
+                <!-- </h:inputHidden> -->
+                <!-- <h:message styleClass="error" for="x_value" id="x_error" class="error"/> -->
             </div>
 
             <div class="y_input">
@@ -54,7 +58,7 @@
                 <h:inputText styleClass="text_input" style="margin-left: 25px" 
                 id="y_value" value="#{hitCheck.y}" required="true" requiredMessage="Введите Y" validatorMessage="Y от -3 до 5">
                      <f:validateDoubleRange minimum="-3" maximum="5" />
-                </h:inputText>
+                 </h:inputText>
                 <h:message styleClass="error" for="y_value" id="y_error"/>
             </div>
 
@@ -138,4 +142,4 @@
     </div>
 </h:body>
 
-</html>
+</ui:composition>
