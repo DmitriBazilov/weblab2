@@ -2,12 +2,10 @@
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ace="http://www.icefaces.org/icefaces/components"
-    xmlns:ice="http://www.icesoft.com/icefaces/component">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
     <title>Dmitri project</title>
@@ -43,14 +41,12 @@
                 <span>Choose X: </span>
                <!--  <h:inputText styleClass="text_input" id="x_value" value="#{hitCheck.x}" required="true" requiredMessage="Incorrect X"/> -->
 
-                <ace:sliderEntry min="-5" max="5" value="#{hitCheck.x}"/>
-
-                <!-- <input type="range" min="-5" max="5" value="0" class="slider" id="x_slider"/> -->
-                <!-- <span id="slider_value">0</span> -->
-                <!-- <h:inputHidden value="#{hitCheck.x}" id="x_value" validatorMessage="X от -5 до 5"> -->
-                <!--     <f:validateDoubleRange minimum="-5" maximum="5" /> -->
-                <!-- </h:inputHidden> -->
-                <!-- <h:message styleClass="error" for="x_value" id="x_error" class="error"/> -->
+                 <input type="range" min="-5" max="5" value="0" class="slider" id="x_slider"/>
+                 <span id="slider_value">0</span>
+                 <h:inputHidden value="#{hitCheck.x}" id="x_value" validatorMessage="X от -5 до 5">
+                     <f:validateDoubleRange minimum="-5" maximum="5" />
+                 </h:inputHidden>
+                 <h:message styleClass="error" for="x_value" id="x_error" class="error"/>
             </div>
 
             <div class="y_input">
@@ -130,7 +126,7 @@
             
             <h:column>
                 <f:facet name="header">execute Time</f:facet>
-                #{hit.executeTime}
+                #{hit.executeTime} мс
             </h:column>
 
             <h:column>
@@ -142,4 +138,4 @@
     </div>
 </h:body>
 
-</ui:composition>
+</html>
