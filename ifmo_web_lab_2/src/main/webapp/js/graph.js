@@ -7,18 +7,6 @@ $(document).ready(function() {
     board = JXG.JSXGraph.initBoard('jxgbox', { boundingbox: [-6, 6, 6, -6], axis: true, showCopyright: false });
     let figuresByRadius = {};
 
-    $('.x_input .error').on('DOMSubtreeModified', () => {
-        $('.x_input .error').text('Incorrect X');
-    });
-
-    $('.y_input .error').on('DOMSubtreeModified', () => {
-        $('.y_input .error').text('Incorrect Y');
-    });
-
-    $('.r_input .error').on('DOMSubtreeModified', () => {
-        $('.r_input .error').text('Incorrect R');
-    });
-
     $('#x_slider').on('click change', (e) => {
         $('[name="formSend:x_value"]').val(e.target.value);
         $('#slider_value').text(e.target.value);

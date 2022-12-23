@@ -23,9 +23,9 @@
 
 <h:body onload="setTimezone()">
     <header class="header">
-        <a href="https://github.com/DmitriBazilov">Bazilov Dmitri P32141 / 142605</a>
+        <a href="https://github.com/DmitriBazilov">Базилов Дмитрий P32141 / 142605</a>
         <h:link outcome="jumpToMain">
-            Welcome page
+            Стартовая страница
         </h:link>
     </header>
     
@@ -38,28 +38,26 @@
         <h:form id="formSend" styleClass="data_input">
 
             <div class="x_input">
-                <span>Choose X: </span>
+                <span>Выберите X: </span>
                <!--  <h:inputText styleClass="text_input" id="x_value" value="#{hitCheck.x}" required="true" requiredMessage="Incorrect X"/> -->
 
                  <input type="range" min="-5" max="5" value="0" class="slider" id="x_slider"/>
                  <span id="slider_value">0</span>
-                 <h:inputHidden value="#{hitCheck.x}" id="x_value" validatorMessage="X от -5 до 5">
-                     <f:validateDoubleRange minimum="-5" maximum="5" />
+                 <h:inputHidden value="#{hitCheck.x}" id="x_value">
                  </h:inputHidden>
                  <h:message styleClass="error" for="x_value" id="x_error" class="error"/>
             </div>
 
             <div class="y_input">
-                <span>Input Y: </span>
-                <h:inputText styleClass="text_input" style="margin-left: 25px" 
-                id="y_value" value="#{hitCheck.y}" required="true" requiredMessage="Введите Y" validatorMessage="Y от -3 до 5">
-                     <f:validateDoubleRange minimum="-3" maximum="5" />
-                 </h:inputText>
-                <h:message styleClass="error" for="y_value" id="y_error"/>
+                <span>Введите Y: </span>
+                <h:inputText styleClass="text_input" style="margin-left: 25px"
+                id="y_value" value="#{hitCheck.y}" required="true" requiredMessage="Введите Y" maxlength="15">
+                </h:inputText>
+                <h:message styleClass="error" for="y_value" id="y_error"></h:message>
             </div>
 
             <div class="r_input">
-                <span>Choose R: </span>
+                <span>Выберите R: </span>
                 <h:selectOneRadio styleClass="r_input_table" id="r_value" 
                 value="#{hitCheck.r}"
                 required="true" requiredMessage="Выберите R">
@@ -75,7 +73,7 @@
             <h:inputHidden value="#{hitCheck.timezone}" id="timezone"/>
 
             <h:commandButton onclick="setTimezone();checkY()" styleClass="button" value="Submit" action="#{hitCheck.save()}">
-                <f:ajax execute="@form" render="result_table x_error y_error r_error script"></f:ajax>
+                <f:ajax execute="@form" render="result_table y_error r_error script"></f:ajax>
             </h:commandButton>
         </h:form>
     </div>
@@ -120,18 +118,18 @@
             </h:column>
 
             <h:column>
-                <f:facet name="header">Current Time</f:facet>
+                <f:facet name="header">Дата проверки</f:facet>
                 #{hit.getCurrentTimeAsString()}
             </h:column>
             
             <h:column>
-                <f:facet name="header">execute Time</f:facet>
+                <f:facet name="header">Время исполнения</f:facet>
                 #{hit.executeTime} мс
             </h:column>
 
             <h:column>
-                <f:facet name="header">Result</f:facet>
-                #{hit.result}
+                <f:facet name="header">Результат</f:facet>
+                #{hit.getFancyResult()}
             </h:column>
 
         </h:dataTable>

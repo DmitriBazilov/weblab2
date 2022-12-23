@@ -18,4 +18,10 @@
             <to-view-id>main.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+
+    <application>
+        <message-bundle>
+            com.dmitri.messages
+        </message-bundle>
+    </application>
 </faces-config>

@@ -1,10 +1,14 @@
 package com.dmitri.ifmo_web_lab_2.model;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 import com.dmitri.ifmo_web_lab_2.database.DatabaseConnector;
@@ -130,6 +134,10 @@ public class HitCheck implements Serializable {
         this.sessionGetter = sessionGetter;
     }
 
+    public String getFancyResult() {
+        return result ? "Попадание" : "Промах";
+    }
+
     public void save() {
         saveTimezone(timezone);
         result = areaChecker.checkHitInArea(this);
@@ -172,10 +180,20 @@ public class HitCheck implements Serializable {
         return (Integer) context.getExternalContext().getSessionMap().get("timezone");
     }
 
-    public void yChangeListener(ValueChangeEvent event) {
-        if (event.getNewValue() == null) return;
-        String newY = event.getNewValue().toString();
-        newY = newY.replace(',', '.');
-        y = Double.valueOf(newY);
+    public void validateY(FacesContext context, UIComponent comp, Object value) {
+        if (value == null) {
+            ((UIInput) comp).setValid(false);
+            FacesMessage message = new FacesMessage("Введите Y");
+            context.addMessage(comp.getClientId(context), message);
+        } else {
+            try {
+                y = (double) value;
+            } catch (Throwable ex) {
+                ((UIInput) comp).setValid(false);
+                FacesMessage message = new FacesMessage("Введите число");
+                message.setSeverity(FacesMessage.SEVERITY_ERROR);
+                context.addMessage(comp.getClientId(context), message);
+            }
+        }
     }
 }
