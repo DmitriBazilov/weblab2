@@ -1,0 +1,132 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: #116466;
+}
+
+.header {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #2C3531;
+}
+
+.header-text {
+    font-size: 30px;
+    color: white;
+}
+
+.main {
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.graph {
+    height: 300px;
+    width: 300px;
+    border: 1px solid;
+    border-radius: 15px;
+    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+    background-color: white;
+}
+
+svg {
+    stroke: rgba(0, 0, 0, 0.92);
+    fill: #888;
+    font-size: 0.8rem;
+}
+
+#formSend {
+    background-color: #d9b08c;
+    border: 1px solid;
+    border-radius: 15px;
+    box-shadow: 0 0 10px 5px rgb(221 221 221);
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-evenly;
+    height: 100%;
+}
+
+#form-x, #form-y, #form-r {
+    display: flex;
+}
+
+#form-x > span, #form-y > span, #form-r > span, label {
+    color: #374785;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.form-input {
+    margin: auto;
+}
+
+.form-r-input {
+    display: flex;
+    justify-content: space-around;
+}
+
+#y {
+    width: 70%;
+}
+
+.alert {
+    display: table;
+    margin: 0 auto;
+    color: red;
+    font-size: 30px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.buttons > .btn {
+    width: 40%;
+
+
+}
+
+#clearButton {
+    width: 50%;
+}
+
+
+.table-container {
+    width: auto;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.table {
+    width: 50%;
+    margin-top: 20px;
+    border-spacing: 2px;
+    border-collapse: separate;
+    box-sizing: border-box;
+    border: 1px solid;
+}
+
+.table th {
+    font-size: 18px;
+    min-width: 30px;
+}
+
+.table td, th {
+    text-align: center;
+    background-color: #031111;
+    color: #374785;
+}
+
+

@@ -12,19 +12,19 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.List;
 
 @WebServlet(name = "ControllerServlet", value = "/ControllerServlet")
 public class ControllerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //createTableIfNeed(request);
+        createTableIfNeed(request);
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         if (checkGetTableRequest(request)) {
-            Table table = (Table) request.getSession().getAttribute("table");
-            ArrayList<TableRow> rows = table.getTableRows();
-            out.print(new JSONArray(rows));
+            List<TableRow> table = (ArrayList<TableRow>) request.getSession().getAttribute("table");
+            out.print(new JSONArray(table));
             out.close();
             response.setStatus(HttpServletResponse.SC_OK);
         } else if (checkArgumentExists(request)) {
@@ -34,7 +34,6 @@ public class ControllerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //createTableIfNeed(request); //maybe need for "not browser" request
         if (checkCleanRequest(request)) {
             cleanTable(request);
             response.setStatus(HttpServletResponse.SC_OK);
@@ -46,7 +45,7 @@ public class ControllerServlet extends HttpServlet {
     private void createTableIfNeed(HttpServletRequest request) {
         HttpSession currentSession = request.getSession();
         if (currentSession.getAttribute("table") == null) {
-            currentSession.setAttribute("table", new Table());
+            currentSession.setAttribute("table", new ArrayList<TableRow>());
         }
     }
 
@@ -56,7 +55,7 @@ public class ControllerServlet extends HttpServlet {
 
     private void cleanTable(HttpServletRequest request) {
         HttpSession currentSession = request.getSession();
-        currentSession.setAttribute("table", new Table());
+        currentSession.setAttribute("table", new ArrayList<TableRow>());
     }
 
     private boolean checkArgumentExists(HttpServletRequest request) {

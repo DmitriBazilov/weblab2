@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "AreaCheckServlet", value = "/AreaCheckServlet")
 public class AreaCheckServlet extends HttpServlet {
@@ -29,6 +30,10 @@ public class AreaCheckServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         long currentTime = System.currentTimeMillis();
         float x = Float.parseFloat(request.getParameter("x"));
@@ -40,10 +45,10 @@ public class AreaCheckServlet extends HttpServlet {
         boolean hit = checkCircle(x, y, r) || checkRectangle(x, y, r) || checkTriangle(x, y, r);
 
         double scriptWorkingTime = System.currentTimeMillis() - currentTime;
-
+    
         TableRow newRow = new TableRow(x, y, r, hit, clientTime.format(DATE_FORMAT), scriptWorkingTime);
-        Table sessionTable = (Table) request.getSession().getAttribute("table");
-        sessionTable.getTableRows().add(newRow);
+        List<TableRow> sessionTable = (ArrayList<TableRow>) request.getSession().getAttribute("table");
+        sessionTable.add(newRow);
 
         PrintWriter out = response.getWriter();
         out.print(new JSONObject(newRow));
@@ -52,14 +57,14 @@ public class AreaCheckServlet extends HttpServlet {
     }
 
     private boolean checkTriangle(float x, float y, float r) {
-        return x <= 0 && y <= 0 && (Math.abs(x) + Math.abs(y)) <= r;
+        return x <= 0 && y <= 0 && (Math.abs(x) + Math.abs(y)) <= r / 2;
     }
 
     private boolean checkCircle(float x, float y, float r) {
-        return x >= 0 && y <= 0 && (Math.pow(x, 2) + Math.pow(y, 2) <= Math.pow(r / 2, 2));
+        return x >= 0 && y >= 0 && (Math.pow(x, 2) + Math.pow(y, 2) <= Math.pow(r, 2));
     }
 
     private boolean checkRectangle(float x, float y, float r) {
-        return x >= 0 && y >= 0 && x <= r && y <= r / 2;
+        return x <= 0 && y >= 0 && Math.abs(x) <= r && y <= r / 2;
     }
 }
